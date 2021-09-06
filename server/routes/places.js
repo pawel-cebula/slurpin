@@ -1,12 +1,12 @@
 const express = require('express');
+
 const placesRouter = express.Router();
 const db = require('../db');
 
 placesRouter.get('/:place_id/checkins', async (req, res) => {
-  const checkins = await db.query(
-    'SELECT * FROM checkin WHERE place_id = $1',
-    [req.params.place_id]
-  );
+  const checkins = await db.query('SELECT * FROM checkin WHERE place_id = $1', [
+    req.params.place_id,
+  ]);
   res.status(200).json(checkins.rows);
 });
 
@@ -21,7 +21,7 @@ placesRouter.get('/:place_id', async (req, res) => {
     [req.params.place_id]
   );
   res.status(200).json({ ...place.rows[0] });
-})
+});
 
 placesRouter.put('/:place_id', async (req, res) => {
   const updatedPlace = await db.query(
@@ -29,15 +29,12 @@ placesRouter.put('/:place_id', async (req, res) => {
     [req.body.name, req.params.place_id]
   );
   res.status(200).json({ ...updatedPlace.rows[0] });
-})
+});
 
 placesRouter.delete('/:place_id', async (req, res) => {
-  await db.query(
-    'DELETE FROM place WHERE id = $1',
-    [req.params.place_id]
-  );
+  await db.query('DELETE FROM place WHERE id = $1', [req.params.place_id]);
   res.status(204).end();
-})
+});
 
 placesRouter.get('/', async (req, res) => {
   const places = await db.query(

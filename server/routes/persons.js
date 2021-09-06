@@ -1,4 +1,5 @@
 const express = require('express');
+
 const personsRouter = express.Router();
 const db = require('../db');
 
@@ -25,10 +26,7 @@ personsRouter.put('/:person_id', async (req, res) => {
 });
 
 personsRouter.delete('/:person_id', async (req, res) => {
-  await db.query(
-    'DELETE FROM person WHERE id = $1',
-    [req.params.person_id]
-  );
+  await db.query('DELETE FROM person WHERE id = $1', [req.params.person_id]);
   res.status(204).end();
 });
 

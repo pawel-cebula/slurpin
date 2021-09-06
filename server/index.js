@@ -3,6 +3,7 @@ const express = require('express');
 require('express-async-errors');
 const cors = require('cors');
 const morgan = require('morgan');
+
 const app = express();
 const placesRouter = require('./routes/places');
 const checkinsRouter = require('./routes/checkins');
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
 
 const unknownEndpoint = (req, res) => {
   res.status(404).json({ error: 'unknown endpoint' });
-}
+};
 
 app.use(unknownEndpoint);
 
@@ -32,7 +33,7 @@ const errorHandler = (err, req, res, next) => {
   console.error('err: ', err);
 
   next(err);
-}
+};
 
 app.use(errorHandler);
 

@@ -1,4 +1,5 @@
 const express = require('express');
+
 const checkinsRouter = express.Router();
 const db = require('../db');
 
@@ -11,7 +12,7 @@ checkinsRouter.get('/:checkin_id', async (req, res) => {
     WHERE c.id = $1;`,
     [req.params.checkin_id]
   );
-  res.status(200).json({ ...checkin.rows[0] })
+  res.status(200).json({ ...checkin.rows[0] });
 });
 
 checkinsRouter.put('/:checkin_id', async (req, res) => {
@@ -24,12 +25,9 @@ checkinsRouter.put('/:checkin_id', async (req, res) => {
 });
 
 checkinsRouter.delete('/:checkin_id', async (req, res) => {
-  await db.query(
-    'DELETE FROM checkin WHERE id = $1',
-    [req.params.checkin_id]
-  );
+  await db.query('DELETE FROM checkin WHERE id = $1', [req.params.checkin_id]);
   res.status(204).end();
-})
+});
 
 checkinsRouter.get('/', async (req, res) => {
   const checkins = await db.query(
