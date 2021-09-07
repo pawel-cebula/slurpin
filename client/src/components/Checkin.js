@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'antd';
+import { Card, Rate } from 'antd';
 import { ReactComponent as Bowl } from '../assets/bowl.svg';
 
 const Checkin = ({ checkin }) => (
@@ -10,13 +10,12 @@ const Checkin = ({ checkin }) => (
         {checkin.place_name}
       </div>
     }
-    extra={<a href="/">More</a>}
     actions={['Like', 'Comment']}
     style={{ maxWidth: 768, margin: '20px auto' }}
   >
-    <p>Rating: {checkin.rating}</p>
-    <p>{checkin.review}</p>
+    <p style={{ fontStyle: 'italic' }}>&quot;{checkin.review}&quot;</p>
     <p>{checkin.person_username}</p>
+    <Rate disabled defaultValue={checkin.rating} />
   </Card>
 );
 
