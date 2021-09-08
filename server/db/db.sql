@@ -3,6 +3,8 @@ BEGIN;
 CREATE TABLE place(
   id uuid DEFAULT uuid_generate_v4(),
   name VARCHAR(50) NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   PRIMARY KEY (id)
 );
 
@@ -10,29 +12,60 @@ CREATE TABLE person(
   id uuid DEFAULT uuid_generate_v4(),
   username VARCHAR(50) UNIQUE NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   PRIMARY KEY (id)
 );
 
+CREATE TYPE bowl_type AS ENUM ('Tonkotsu', 'Shio', 'Shoyu', 'Miso', 'TanTan', 'Other');
+
 CREATE TABLE checkin(
   id uuid DEFAULT uuid_generate_v4(),
+  bowl bowl_type NOT NULL,
   rating SMALLINT NOT NULL CHECK (rating >= 1 AND rating <= 5),
   review VARCHAR(500),
   place_id uuid NOT NULL,
   person_id uuid NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   FOREIGN KEY (place_id) REFERENCES place (id),
   FOREIGN KEY (person_id) REFERENCES person (id),
   PRIMARY KEY (id)
 );
 
-INSERT INTO place(name) VALUES ('Cocolo Ramen Mitte'), ('Cocolo Ramen Kreuzberg'), ('Takumi Nine'), ('Hako Ramen Boxi'), ('Buya Ramen Factory');
+CREATE TABLE like(
+  id uuid DEFAULT uuid_generate_v4(),
+  checkin_id uuid NOT NULL,
+  person_id uuid NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  FOREIGN KEY (checkin_id) REFERENCES checkin (id),
+  FOREIGN KEY (person_id) REFERENCES person (id),
+  PRIMARY KEY (id)
+);
 
-INSERT INTO person(username, email) VALUES ('pawel-123', 'pawel-123@gmail.com'), ('ramen-freak', 'ramenfreak123@gmail.com'), ('emptybowl', 'fake-email321@gmail.com');
+CREATE FUNCTION trigger_set_timestamp()
+RETURNS TRIGGER as $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-INSERT INTO checkin (rating, review, place_id, person_id) VALUES
-  (4, 'Pretty good tonkotsu, noodles a bit too soft though.', 'c8647c26-0c20-414a-88ca-35906b346585', '272de710-f5c5-4c23-b86f-cd64542115f3'),
-  (5, 'Amazing Sapporo Miso Ramen, surprisingly good chicken thigh.', '641c205c-4576-4d69-b374-98e8f5222052', '68f6cfed-9351-4243-a74d-5512bd610447'),
-  (3, 'The tantan was way too heavy, barely managed to finish it', '8ed074a3-508f-472d-879d-6021897ce608', '3b3cbff4-8472-47f5-86ca-962f38c00774');
-  
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON place
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
+INSERT INTO place(name, id) VALUES ('Cocolo Ramen Mitte', 'c8647c26-0c20-414a-88ca-35906b346585'), ('Cocolo Ramen Kreuzberg', '7181dafc-b2ca-48bf-8d09-a743bd4b2897'), ('Takumi Nine', '641c205c-4576-4d69-b374-98e8f5222052'), ('Hako Ramen Boxi', '8ed074a3-508f-472d-879d-6021897ce608'), ('Makoto Ramen', 'f902d778-5d57-4c24-911e-4d6da1813460');
+
+INSERT INTO person(username, email, id) VALUES ('pawel-123', 'pawel-123@gmail.com', '272de710-f5c5-4c23-b86f-cd64542115f3'), ('ramen-freak', 'ramenfreak123@gmail.com', '68f6cfed-9351-4243-a74d-5512bd610447'), ('emptybowl', 'fake-email321@gmail.com', '3b3cbff4-8472-47f5-86ca-962f38c00774');
+
+INSERT INTO checkin (bowl, rating, review, place_id, person_id) VALUES
+  ('Tonkotsu', 4, 'Pretty good tonkotsu, noodles a bit too soft though.', 'c8647c26-0c20-414a-88ca-35906b346585', '272de710-f5c5-4c23-b86f-cd64542115f3'),
+  ('Miso', 5, 'Amazing Sapporo Miso Ramen, surprisingly good chicken thigh.', '641c205c-4576-4d69-b374-98e8f5222052', '68f6cfed-9351-4243-a74d-5512bd610447'),
+  ('TanTan', 3, 'The tantan was way too heavy, barely managed to finish it', '8ed074a3-508f-472d-879d-6021897ce608', '3b3cbff4-8472-47f5-86ca-962f38c00774'),
+  ('TanTan', 4, 'Still one of my favorite tantans in Berlin, not too heavy but still very flavorful', '7181dafc-b2ca-48bf-8d09-a743bd4b2897', '272de710-f5c5-4c23-b86f-cd64542115f3'),
+  ('Other', 4, 'Very interesting stamina ramen, not sure what kind of broth it is. Lots of pork belly and quite spicy.', 'f902d778-5d57-4c24-911e-4d6da1813460', '68f6cfed-9351-4243-a74d-5512bd610447');
 
 END;
 

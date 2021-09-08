@@ -5,7 +5,6 @@ const db = require('../db');
 
 personsRouter.get('/:person_id', async (req, res) => {
   const person = await db.query(
-    // 'SELECT * FROM person WHERE id = $1',
     `SELECT p.id, username, email, COALESCE(json_agg(c) FILTER (WHERE c.person_id IS NOT NULL), '[]'::json) AS checkins
     FROM person p
     LEFT JOIN checkin c ON p.id = c.person_id
@@ -32,7 +31,6 @@ personsRouter.delete('/:person_id', async (req, res) => {
 
 personsRouter.get('/', async (req, res) => {
   const persons = await db.query(
-    // 'SELECT * FROM person'
     `SELECT p.id, username, email, COALESCE(json_agg(c) FILTER (WHERE c.person_id IS NOT NULL), '[]'::json) AS checkins
     FROM person p
     LEFT JOIN checkin c ON p.id = c.person_id

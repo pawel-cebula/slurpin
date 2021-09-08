@@ -12,8 +12,7 @@ placesRouter.get('/:place_id/checkins', async (req, res) => {
 
 placesRouter.get('/:place_id', async (req, res) => {
   const place = await db.query(
-    // 'SELECT * FROM place WHERE id = $1',
-    `SELECT p.id, name, COALESCE(json_agg(c) FILTER (WHERE c.place_id IS NOT NULL), '[]'::json) AS checkins
+    `SELECT p.id, name, p.created_at, p.updated_at, COALESCE(json_agg(c) FILTER (WHERE c.place_id IS NOT NULL), '[]'::json) AS checkins
     FROM place p
     LEFT JOIN checkin c ON p.id = c.place_id
     WHERE p.id = $1
@@ -38,8 +37,7 @@ placesRouter.delete('/:place_id', async (req, res) => {
 
 placesRouter.get('/', async (req, res) => {
   const places = await db.query(
-    // 'SELECT * FROM place'
-    `SELECT p.id, name, COALESCE(json_agg(c) FILTER (WHERE c.place_id IS NOT NULL), '[]'::json) AS checkins
+    `SELECT p.id, name, p.created_at, p.updated_at, COALESCE(json_agg(c) FILTER (WHERE c.place_id IS NOT NULL), '[]'::json) AS checkins
     FROM place p
     LEFT JOIN checkin c ON p.id = c.place_id
     GROUP BY p.id`
