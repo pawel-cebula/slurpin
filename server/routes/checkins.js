@@ -54,7 +54,8 @@ checkinsRouter.get('/', async (req, res) => {
     `SELECT c.id, bowl, rating, review, likes, c.created_at, c.updated_at, place_id, name AS place, person_id, username AS person_username
     FROM checkin c 
     LEFT JOIN place ON c.place_id = place.id
-    LEFT JOIN person ON c.person_id = person.id`
+    LEFT JOIN person ON c.person_id = person.id
+    ORDER BY c.created_at DESC;`
   );
   res.status(200).json(checkins.rows);
 });
