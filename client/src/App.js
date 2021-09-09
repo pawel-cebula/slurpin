@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import { Layout } from 'antd';
@@ -9,17 +9,20 @@ import Footer from './components/Footer';
 import Places from './containers/Places';
 import { initializeCheckins } from './reducers/checkinReducer';
 import { initializePlaces } from './reducers/placeReducer';
+import { initializeLikes } from './reducers/userReducer';
 import PlaceDetail from './containers/PlaceDetail';
 import NewCheckin from './containers/NewCheckin';
 
 const { Content } = Layout;
 
 function App() {
+  const userId = useSelector((state) => state.user.id);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(initializeCheckins());
     dispatch(initializePlaces());
+    dispatch(initializeLikes(userId));
   }, [dispatch]);
 
   return (

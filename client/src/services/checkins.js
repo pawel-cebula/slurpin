@@ -12,4 +12,19 @@ const addNew = async (checkin) => {
   return response.data;
 };
 
-export default { getAll, addNew };
+const like = async (checkinId, personId) => {
+  const response = await axios.put(`${baseUrl}/${checkinId}/like`, {
+    personId,
+  });
+  return response.data;
+};
+
+const unlike = async (checkinId, personId) => {
+  // on axios.delete, request body needs to be passed in data key
+  const response = await axios.delete(`${baseUrl}/${checkinId}/like`, {
+    data: { personId },
+  });
+  return response.data;
+};
+
+export default { getAll, addNew, like, unlike };

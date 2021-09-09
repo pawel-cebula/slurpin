@@ -6,6 +6,7 @@ import { addCheckin } from '../reducers/checkinReducer';
 
 const CheckinForm = () => {
   const places = useSelector((state) => state.places);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const [form] = Form.useForm();
@@ -48,7 +49,7 @@ const CheckinForm = () => {
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 16 }}
         onFinishFailed={onFinishFailed}
-        initialValues={{ personId: '68f6cfed-9351-4243-a74d-5512bd610447' }}
+        initialValues={{ personId: user.id }}
         style={{ maxWidth: 768, margin: '30px auto' }}
       >
         <Form.Item name="placeId" label="Place">

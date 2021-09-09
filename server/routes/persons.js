@@ -3,6 +3,14 @@ const express = require('express');
 const personsRouter = express.Router();
 const db = require('../db');
 
+personsRouter.get('/:person_id/likes', async (req, res) => {
+  const likes = await db.query(
+    `SELECT checkin_id FROM checkin_like WHERE person_id = $1`,
+    [req.params.person_id]
+  );
+  res.status(200).json(likes.rows.map((c) => c.checkin_id));
+});
+
 personsRouter.get('/:person_id', async (req, res) => {
   const person = await db.query(
     `SELECT p.id, username, email, COALESCE(json_agg(c) FILTER (WHERE c.person_id IS NOT NULL), '[]'::json) AS checkins
