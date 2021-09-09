@@ -63,7 +63,13 @@ checkinsRouter.get('/', async (req, res) => {
 checkinsRouter.post('/', async (req, res) => {
   const { bowl, rating, review, place_id, person_id } = req.body;
   const newCheckin = await db.query(
-    'INSERT INTO checkin(bowl, rating, review, place_id, person_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+    `WITH inserted AS (
+      INSERT INTO checkin(bowl, rating, review, place_id, person_id) VALUES ($1, $2, $3, $4, $5) RETURNING *
+    )
+    SELECT inserted.*, place.name AS place_name, person.username AS person_username
+    FROM inserted
+    LEFT JOIN place ON inserted.place_id = place.id
+    LEFT JOIN person ON inserted.person_id = person.id`,
     [bowl, rating, review, place_id, person_id]
   );
   res.status(201).json({ ...newCheckin.rows[0] });

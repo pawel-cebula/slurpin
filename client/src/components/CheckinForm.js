@@ -1,33 +1,54 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, Input, Rate, Select } from 'antd';
+import { useHistory } from 'react-router-dom';
 import { addCheckin } from '../reducers/checkinReducer';
 
 const CheckinForm = () => {
   const places = useSelector((state) => state.places);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const [form] = Form.useForm();
 
   const onFinish = async (values) => {
     console.log(values);
-    const { rating, review, placeId, personId } = values;
-    const checkin = { rating, review, place_id: placeId, person_id: personId };
+    const { bowl, rating, review, placeId, personId } = values;
+    const checkin = {
+      bowl,
+      rating,
+      review,
+      place_id: placeId,
+      person_id: personId,
+    };
+    form.resetFields();
     dispatch(addCheckin(checkin));
+    history.push('/feed');
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
+  const bowlOptions = [
+    'Tonkotsu',
+    'Shio',
+    'Shoyu',
+    'Miso',
+    'TanTan',
+    'Other',
+  ].map((option) => ({ label: option, value: option }));
+
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>Add a new checkin</h1>
       <Form
+        form={form}
         name="newCheckin"
         onFinish={onFinish}
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 16 }}
         onFinishFailed={onFinishFailed}
-        initialValues={{ personId: '272de710-f5c5-4c23-b86f-cd64542115f3' }}
+        initialValues={{ personId: '68f6cfed-9351-4243-a74d-5512bd610447' }}
         style={{ maxWidth: 768, margin: '30px auto' }}
       >
         <Form.Item name="placeId" label="Place">
@@ -38,6 +59,9 @@ const CheckinForm = () => {
               </Select.Option>
             ))}
           </Select>
+        </Form.Item>
+        <Form.Item name="bowl" label="Bowl">
+          <Select options={bowlOptions} />
         </Form.Item>
         <Form.Item name="review" label="Review">
           <Input.TextArea />

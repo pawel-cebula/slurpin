@@ -5,7 +5,7 @@ const checkinReducer = (state = [], action) => {
     case 'INIT_CHECKINS':
       return action.checkins;
     case 'ADD_CHECKIN':
-      return [...state, action.checkin];
+      return [action.checkin, ...state];
     default:
       return state;
   }
