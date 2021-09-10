@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { Card, Rate, Tag } from 'antd';
 import { LikeTwoTone } from '@ant-design/icons';
@@ -10,8 +10,12 @@ import { addUserLike, deleteUserLike } from '../reducers/userReducer';
 
 const Checkin = ({ checkin }) => {
   const user = useSelector((state) => state.user);
-  const [liked, setLiked] = useState(user.likes.includes(checkin.id));
+  const [liked, setLiked] = useState();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setLiked(user.likes.includes(checkin.id));
+  }, [user]);
 
   const likeBtnColor = liked ? '#1890ff' : '#8c8c8c';
 
