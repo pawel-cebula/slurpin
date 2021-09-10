@@ -1,7 +1,14 @@
 const { Pool } = require('pg');
 
+// takes user, host, database, password, port from .env
 const pool = new Pool();
 
 module.exports = {
-  query: (text, params) => pool.query(text, params),
+  query: async (text, params) => {
+    const response = await pool.query(text, params);
+    if (response.rows.length === 0) {
+      throw new Error('resource not found in the database');
+    }
+    return response;
+  },
 };

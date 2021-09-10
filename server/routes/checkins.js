@@ -32,6 +32,10 @@ checkinsRouter.get('/:checkin_id', async (req, res) => {
     WHERE c.id = $1;`,
     [req.params.checkin_id]
   );
+
+  // if (checkin.rows.length === 0) {
+  //   return res.status(404).json({ error: 'no resource found' });
+  // }
   res.status(200).json({ ...checkin.rows[0] });
 });
 
