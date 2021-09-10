@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { addCheckin } from '../reducers/checkinReducer';
 
 const CheckinForm = () => {
-  const places = useSelector((state) => state.places);
+  const places = useSelector((state) => state.places.data);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -54,11 +54,16 @@ const CheckinForm = () => {
       >
         <Form.Item name="placeId" label="Place">
           <Select showSearch optionFilterProp="label">
-            {places.map((place) => (
-              <Select.Option key={place.id} value={place.id} label={place.name}>
-                {place.name}
-              </Select.Option>
-            ))}
+            {places &&
+              places.map((place) => (
+                <Select.Option
+                  key={place.id}
+                  value={place.id}
+                  label={place.name}
+                >
+                  {place.name}
+                </Select.Option>
+              ))}
           </Select>
         </Form.Item>
         <Form.Item name="bowl" label="Bowl">

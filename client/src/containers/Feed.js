@@ -1,20 +1,26 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Checkin from '../components/Checkin';
+import Spinner from '../components/Spinner';
+import { initializeCheckins } from '../reducers/checkinReducer';
 
 const Feed = () => {
   const checkins = useSelector((state) => state.checkins);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initializeCheckins());
+  }, [dispatch]);
 
   return (
     <div>
-      {checkins ? (
+      {checkins.isLoading && <Spinner />}
+      {checkins.data && (
         <div>
-          {checkins.map((checkin) => (
+          {checkins.data.map((checkin) => (
             <Checkin key={checkin.id} checkin={checkin} />
           ))}
         </div>
-      ) : (
-        <p>loading...</p>
       )}
     </div>
   );

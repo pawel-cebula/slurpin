@@ -4,6 +4,8 @@ const checkinsRouter = express.Router();
 const db = require('../db');
 
 checkinsRouter.put('/:checkin_id/like', async (req, res) => {
+  // console.log('req', req);
+  console.log('req.body', req.body);
   const checkinId = req.params.checkin_id;
   const { personId } = req.body;
   const checkinLike = await db.query(
@@ -14,6 +16,8 @@ checkinsRouter.put('/:checkin_id/like', async (req, res) => {
 });
 
 checkinsRouter.delete('/:checkin_id/like', async (req, res) => {
+  // console.log('req', req);
+  console.log('req.body', req.body);
   const checkinId = req.params.checkin_id;
   const { personId } = req.body;
   await db.query(
