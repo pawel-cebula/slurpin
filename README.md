@@ -26,13 +26,14 @@ The client app (SPA) is built with React, uses Redux (with redux-thunk) for stat
 ## Setting up the app locally
 
 1. Install PostgreSQL locally, open `psql` (terminal), connect to any database (i.e. using the defaults you provided when installing PostgreSQL locally and setting up the admin account and main database).
-2. Run the script from db.sql
+2.
+3. Run the script from `db.sql`.
 
 ```
 \i /absolute/path/to/db.sql
 ```
 
-If it runs correctly, you should see something like this in `psql` terminal
+If it runs correctly, you should see something like this in `psql` terminal.
 
 ```
 CREATE DATABASE
@@ -74,4 +75,6 @@ JWT_SECRET=yoursecret
 
 5. `npm start` the server first (port 3000), and then the `client` (port 3001).
 
-6. Go to `http://localhostL3001`, register an account, log in and you should see the first few checkins in the feed that were imported while running `db.sql`
+6. Check if the `baseURL` in `client/src/api.js` matches your client app URL.
+
+7. Launch the client app in the browser (i.e. `http://localhost:3001`), register an account, log in and you should see the first few checkins in the feed that were imported while running `db.sql`.
