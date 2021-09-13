@@ -27,8 +27,6 @@ const unknownEndpoint = (req, res) => {
 
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {
-  // console.log('err: ', err);
-
   // Known database errors
   if (err.message.includes('resource not found')) {
     return res.status(404).json({ error: err.message });
@@ -57,7 +55,6 @@ const errorHandler = (err, req, res, next) => {
     }
 
     if (err.code.startsWith('23')) {
-      console.log(err);
       return res
         .status(409)
         .json({ error: `constraint violation: ${err.message}` });
@@ -65,7 +62,6 @@ const errorHandler = (err, req, res, next) => {
 
     // Unknown database errors
     if (err.code && err.code.length === 5) {
-      console.log(err);
       return res
         .status(500)
         .json({ error: `unknown database error: ${err.message}` });

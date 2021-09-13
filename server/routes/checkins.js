@@ -1,11 +1,9 @@
 const express = require('express');
-const { authToken } = require('../utils/middleware');
 
 const checkinsRouter = express.Router();
 const db = require('../db');
 
-checkinsRouter.put('/:checkin_id/like', authToken, async (req, res) => {
-  console.log('req.body', req.body);
+checkinsRouter.put('/:checkin_id/like', async (req, res) => {
   const checkinId = req.params.checkin_id;
   const { personId } = req.body;
   const checkinLike = await db.query(
@@ -15,8 +13,7 @@ checkinsRouter.put('/:checkin_id/like', authToken, async (req, res) => {
   res.status(200).json(checkinLike.rows[0]);
 });
 
-checkinsRouter.delete('/:checkin_id/like', authToken, async (req, res) => {
-  console.log('req.body', req.body);
+checkinsRouter.delete('/:checkin_id/like', async (req, res) => {
   const checkinId = req.params.checkin_id;
   const { personId } = req.body;
   await db.query(
@@ -26,7 +23,7 @@ checkinsRouter.delete('/:checkin_id/like', authToken, async (req, res) => {
   res.status(204).end();
 });
 
-checkinsRouter.get('/:checkin_id', authToken, async (req, res) => {
+checkinsRouter.get('/:checkin_id', async (req, res) => {
   const checkin = await db.query(
     `SELECT c.id, bowl, rating, review, likes, c.created_at, c.updated_at, place_id, name AS place_name, person_id, username AS person_username
     FROM checkin c 
@@ -39,7 +36,7 @@ checkinsRouter.get('/:checkin_id', authToken, async (req, res) => {
   res.status(200).json(checkin.rows[0]);
 });
 
-checkinsRouter.put('/:checkin_id', authToken, async (req, res) => {
+checkinsRouter.put('/:checkin_id', async (req, res) => {
   const { rating, review, bowl } = req.body;
   const updatedCheckin = await db.query(
     'UPDATE checkin SET rating = $1, review = $2, bowl = $3 WHERE id = $4 RETURNING *',
@@ -48,12 +45,12 @@ checkinsRouter.put('/:checkin_id', authToken, async (req, res) => {
   res.status(200).json(updatedCheckin.rows[0]);
 });
 
-checkinsRouter.delete('/:checkin_id', authToken, async (req, res) => {
+checkinsRouter.delete('/:checkin_id', async (req, res) => {
   await db.query('DELETE FROM checkin WHERE id = $1', [req.params.checkin_id]);
   res.status(204).end();
 });
 
-checkinsRouter.get('/', authToken, async (req, res) => {
+checkinsRouter.get('/', async (req, res) => {
   const checkins = await db.query(
     `SELECT c.id, bowl, rating, review, likes, c.created_at, c.updated_at, place_id, name AS place_name, person_id, username AS person_username
     FROM checkin c 
@@ -64,7 +61,7 @@ checkinsRouter.get('/', authToken, async (req, res) => {
   res.status(200).json(checkins.rows);
 });
 
-checkinsRouter.post('/', authToken, async (req, res) => {
+checkinsRouter.post('/', async (req, res) => {
   const { bowl, rating, review, place_id, person_id } = req.body;
   const newCheckin = await db.query(
     `WITH inserted AS (

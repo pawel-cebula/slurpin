@@ -1,12 +1,13 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logout } from '../reducers/userReducer';
 
 const Header = () => {
   const user = useSelector((state) => state.user);
   const history = useHistory();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout();
@@ -50,7 +51,12 @@ const Header = () => {
       }}
     >
       <div className="logo" />
-      <Menu className="navigation" theme="dark" mode="horizontal">
+      <Menu
+        className="navigation"
+        theme="dark"
+        mode="horizontal"
+        selectedKeys={[location.pathname.slice(1)]}
+      >
         <Menu.Item key="feed">
           <NavLink to="/feed">Feed</NavLink>
         </Menu.Item>
