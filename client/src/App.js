@@ -43,7 +43,6 @@ function App() {
 
   useEffect(() => {
     if (user.token) {
-      console.log('entering if statement');
       dispatch(initializeLikes(user.id));
       dispatch(initializePlaces());
     }
