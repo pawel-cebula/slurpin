@@ -1,5 +1,9 @@
 @import '~antd/dist/antd.css';
 
+h1 {
+  text-align: center;
+}
+
 .App {
   min-height: 100vh;
 }

@@ -47,7 +47,7 @@ const errorHandler = (err, req, res, next) => {
       return res.status(400).json({ error: `data exception: ${err.message}` });
     }
 
-    if (err.code === '223505') {
+    if (err.code === '23505') {
       if (err.message.includes('person_email_key')) {
         return res.status(409).json({ error: 'duplicate email' });
       }

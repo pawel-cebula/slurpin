@@ -19,6 +19,7 @@ import { removeError, removeSuccess } from './reducers/notificationReducer';
 import { initializePlaces } from './reducers/placeReducer';
 import Login from './containers/Login';
 import PrivateRoute from './components/PrivateRoute';
+import Register from './containers/Register';
 
 const { Content } = Layout;
 
@@ -90,6 +91,7 @@ function App() {
               <PrivateRoute path="/new-checkin">
                 <NewCheckin />
               </PrivateRoute>
+              <Route path="/register" component={Register} />
               <Route path="/login">
                 {!user.token ? <Login /> : <Redirect to="/feed" />}
               </Route>

@@ -14,24 +14,32 @@ const Header = () => {
     window.location.reload();
   };
 
-  const loginButton = () => (
-    <Menu.Item key="login" style={{ marginLeft: 'auto' }}>
-      <NavLink to="/login">Login</NavLink>
-    </Menu.Item>
-  );
-
-  const logoutButton = () => (
-    <Menu.Item key="logout" style={{ marginLeft: 'auto' }}>
-      <span
-        role="button"
-        tabIndex={0}
-        onClick={handleLogout}
-        onKeyDown={handleLogout}
-      >
-        Logout
-      </span>
-    </Menu.Item>
-  );
+  const userButtons = () => {
+    if (user.token) {
+      return (
+        <Menu.Item key="logout" style={{ marginLeft: 'auto' }}>
+          <span
+            role="button"
+            tabIndex={0}
+            onClick={handleLogout}
+            onKeyDown={handleLogout}
+          >
+            Logout
+          </span>
+        </Menu.Item>
+      );
+    }
+    return (
+      <>
+        <Menu.Item key="register" style={{ marginLeft: 'auto' }}>
+          <NavLink to="/register">Register</NavLink>
+        </Menu.Item>
+        <Menu.Item key="login">
+          <NavLink to="/login">Login</NavLink>
+        </Menu.Item>
+      </>
+    );
+  };
 
   return (
     <Layout.Header
@@ -52,7 +60,7 @@ const Header = () => {
         <Menu.Item key="checkin">
           <NavLink to="/new-checkin">New checkin</NavLink>
         </Menu.Item>
-        {user.token ? logoutButton() : loginButton()}
+        {userButtons()}
       </Menu>
     </Layout.Header>
   );

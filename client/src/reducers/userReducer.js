@@ -1,6 +1,6 @@
 import personService from '../services/persons';
 import authService from '../services/auth';
-import { addError } from './notificationReducer';
+import { addError, addSuccess } from './notificationReducer';
 
 const userInfo = JSON.parse(localStorage.getItem('user'));
 
@@ -51,8 +51,12 @@ export const register = (username, email, password) => async (dispatch) => {
     dispatch({
       type: 'REGISTER',
     });
-  } catch {
-    dispatch(addError('Failed to register a new user'));
+    dispatch(
+      addSuccess('Successfully registered an account - you can now log in')
+    );
+  } catch (error) {
+    const notification = error.response?.data?.error;
+    dispatch(addError(`Failed to register a new user - ${notification}`));
   }
 };
 

@@ -10,13 +10,14 @@ const Feed = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user.token) {
+    if (!checkins.data && user.token) {
       dispatch(initializeCheckins());
     }
   }, [dispatch]);
 
   return (
     <div>
+      <h1>Recent checkins from Berlin</h1>
       {checkins.isLoading && <Spinner />}
       {checkins.data && (
         <div>

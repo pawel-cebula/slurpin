@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Form, Input, Rate, Select } from 'antd';
+import { Form, Input, Rate, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { addCheckin } from '../reducers/checkinReducer';
+import FormWrapper from './FormWrapper';
 
 const CheckinForm = () => {
   const places = useSelector((state) => state.places.data);
@@ -12,7 +13,6 @@ const CheckinForm = () => {
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
-    console.log(values);
     const { bowl, rating, review, placeId } = values;
     const checkin = {
       bowl,
@@ -24,10 +24,6 @@ const CheckinForm = () => {
     form.resetFields();
     await dispatch(addCheckin(checkin));
     history.push('/feed');
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
   };
 
   const bowlOptions = [
@@ -43,13 +39,11 @@ const CheckinForm = () => {
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>Add a new checkin</h1>
-      <Form
+      <FormWrapper
         form={form}
-        name="newCheckin"
         onFinish={onFinish}
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 16 }}
-        onFinishFailed={onFinishFailed}
         initialValues={{ personId: user.id }}
         style={{ maxWidth: 768, margin: '30px auto' }}
       >
@@ -74,7 +68,12 @@ const CheckinForm = () => {
         <Form.Item
           name="bowl"
           label="Bowl"
-          rules={[{ required: true, message: 'Please select the bowl type' }]}
+          rules={[
+            {
+              required: true,
+              message: 'Please select the bowl type',
+            },
+          ]}
         >
           <Select options={bowlOptions} />
         </Form.Item>
@@ -88,12 +87,7 @@ const CheckinForm = () => {
         >
           <Rate />
         </Form.Item>
-        <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+      </FormWrapper>
     </div>
   );
 };

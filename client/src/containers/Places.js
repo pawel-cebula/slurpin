@@ -8,6 +8,7 @@ const Places = () => {
 
   return (
     <div>
+      <h1>Ramen places in Berlin</h1>
       {places.isLoading && <Spinner />}
       {places.data &&
         places.data.map((place) => <Place key={place.id} place={place} />)}
