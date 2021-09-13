@@ -6,10 +6,13 @@ import { initializeCheckins } from '../reducers/checkinReducer';
 
 const Feed = () => {
   const checkins = useSelector((state) => state.checkins);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initializeCheckins());
+    if (user.token) {
+      dispatch(initializeCheckins());
+    }
   }, [dispatch]);
 
   return (

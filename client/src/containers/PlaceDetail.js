@@ -1,12 +1,20 @@
 import { Card, Rate } from 'antd';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import placeIcon from '../assets/place.png';
 
 const PlaceDetail = () => {
+  const [place, setPlace] = useState(null);
   const { id } = useParams();
-  const place = useSelector((state) => state.places.find((p) => p.id === id));
+  const places = useSelector((state) => state.places.data);
+
+  useEffect(() => {
+    if (places) {
+      setPlace(places.find((p) => p.id === id));
+    }
+  }, [places]);
+
   return (
     <div>
       {place && (

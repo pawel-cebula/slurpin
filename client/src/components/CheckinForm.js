@@ -13,16 +13,16 @@ const CheckinForm = () => {
 
   const onFinish = async (values) => {
     console.log(values);
-    const { bowl, rating, review, placeId, personId } = values;
+    const { bowl, rating, review, placeId } = values;
     const checkin = {
       bowl,
       rating,
       review,
       place_id: placeId,
-      person_id: personId,
+      person_id: user.id,
     };
     form.resetFields();
-    dispatch(addCheckin(checkin));
+    await dispatch(addCheckin(checkin));
     history.push('/feed');
   };
 
@@ -36,6 +36,7 @@ const CheckinForm = () => {
     'Shoyu',
     'Miso',
     'TanTan',
+    'Tsukemen',
     'Other',
   ].map((option) => ({ label: option, value: option }));
 
@@ -52,7 +53,11 @@ const CheckinForm = () => {
         initialValues={{ personId: user.id }}
         style={{ maxWidth: 768, margin: '30px auto' }}
       >
-        <Form.Item name="placeId" label="Place">
+        <Form.Item
+          name="placeId"
+          label="Place"
+          rules={[{ required: true, message: 'Please input the place name' }]}
+        >
           <Select showSearch optionFilterProp="label">
             {places &&
               places.map((place) => (
@@ -66,17 +71,22 @@ const CheckinForm = () => {
               ))}
           </Select>
         </Form.Item>
-        <Form.Item name="bowl" label="Bowl">
+        <Form.Item
+          name="bowl"
+          label="Bowl"
+          rules={[{ required: true, message: 'Please select the bowl type' }]}
+        >
           <Select options={bowlOptions} />
         </Form.Item>
         <Form.Item name="review" label="Review">
           <Input.TextArea />
         </Form.Item>
-        <Form.Item name="rating" label="Rating">
+        <Form.Item
+          name="rating"
+          label="Rating"
+          rules={[{ required: true, message: 'Please select the rating' }]}
+        >
           <Rate />
-        </Form.Item>
-        <Form.Item name="personId" label="Person">
-          <Input />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
           <Button type="primary" htmlType="submit">

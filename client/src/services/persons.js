@@ -1,9 +1,9 @@
-import axios from 'axios';
+import api from '../api';
 
-const baseUrl = 'http://localhost:3000/api/persons';
+const url = '/persons';
 
 const getLikes = async (personId) => {
-  const response = await axios.get(`${baseUrl}/${personId}/likes`);
+  const response = await api.get(`${url}/${personId}/likes`);
   return response.data;
 };
 

@@ -9,6 +9,7 @@ const placesRouter = require('./routes/places');
 const checkinsRouter = require('./routes/checkins');
 const personsRouter = require('./routes/persons');
 const { unknownEndpoint, errorHandler } = require('./utils/middleware');
+const authRouter = require('./routes/auth');
 
 const PORT = process.env.PORT || 3000;
 
@@ -16,6 +17,7 @@ app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/auth', authRouter);
 app.use('/api/places', placesRouter);
 app.use('/api/checkins', checkinsRouter);
 app.use('/api/persons', personsRouter);

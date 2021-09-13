@@ -17,7 +17,6 @@ const Place = ({ place }) => (
       </div>
     }
     extra={<Link to={`/places/${place.id}`}>More</Link>}
-    actions={['Save']}
     style={{ maxWidth: 768, margin: '20px auto' }}
   >
     <RecentCheckin checkin={place.checkins[0]} />

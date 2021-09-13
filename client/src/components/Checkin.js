@@ -58,7 +58,6 @@ const Checkin = ({ checkin }) => {
         >
           Like
         </span>,
-        'Comment',
       ]}
       style={{ maxWidth: 768, margin: '20px auto' }}
     >

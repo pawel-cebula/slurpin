@@ -1,22 +1,29 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import './App.css';
 import { Layout, notification } from 'antd';
 import Feed from './containers/Feed';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Places from './containers/Places';
-import { initializeLikes } from './reducers/userReducer';
+import { initializeLikes, initializeUser } from './reducers/userReducer';
 import PlaceDetail from './containers/PlaceDetail';
 import NewCheckin from './containers/NewCheckin';
 import { removeError, removeSuccess } from './reducers/notificationReducer';
 import { initializePlaces } from './reducers/placeReducer';
+import Login from './containers/Login';
+import PrivateRoute from './components/PrivateRoute';
 
 const { Content } = Layout;
 
 function App() {
-  const userId = useSelector((state) => state.user.id);
+  const user = useSelector((state) => state.user);
   const success = useSelector((state) => state.notification.success);
   const error = useSelector((state) => state.notification.error);
   const dispatch = useDispatch();
@@ -27,9 +34,19 @@ function App() {
   };
 
   useEffect(() => {
-    dispatch(initializeLikes(userId));
-    dispatch(initializePlaces());
-  }, [dispatch]);
+    const loggedUser = localStorage.getItem('user');
+    if (loggedUser) {
+      dispatch(initializeUser());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user.token) {
+      console.log('entering if statement');
+      dispatch(initializeLikes(user.id));
+      dispatch(initializePlaces());
+    }
+  }, [dispatch, user.token]);
 
   useEffect(() => {
     if (success) {
@@ -56,19 +73,29 @@ function App() {
           className="site-layout"
           style={{ padding: '0 50px', marginTop: 128 }}
         >
-          {/* {success && (
-            <Alert type="success" showIcon closable message={success} />
-          )}
-          {error && <p>{error}</p>} */}
           <div
             className="site-layout-background"
             style={{ padding: 24, minHeight: 380 }}
           >
             <Switch>
-              <Route path="/feed" component={Feed} />
-              <Route path="/places/:id" component={PlaceDetail} />
-              <Route path="/places" component={Places} />
-              <Route path="/new-checkin" component={NewCheckin} />
+              <PrivateRoute path="/feed">
+                <Feed />
+              </PrivateRoute>
+              <PrivateRoute path="/places/:id">
+                <PlaceDetail />
+              </PrivateRoute>
+              <PrivateRoute path="/places">
+                <Places />
+              </PrivateRoute>
+              <PrivateRoute path="/new-checkin">
+                <NewCheckin />
+              </PrivateRoute>
+              <Route path="/login">
+                {!user.token ? <Login /> : <Redirect to="/feed" />}
+              </Route>
+              <Route exact path="/">
+                {user.token ? <Feed /> : <Redirect to="login" />}
+              </Route>
             </Switch>
           </div>
           <Footer />

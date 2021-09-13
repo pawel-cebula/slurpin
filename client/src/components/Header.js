@@ -1,33 +1,61 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
-import { Link } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { logout } from '../reducers/userReducer';
 
-const Header = () => (
-  <Layout.Header
-    style={{
-      position: 'fixed',
-      zIndex: 1,
-      width: '100%',
-    }}
-  >
-    <div className="logo" />
-    <Menu
-      className="navigation"
-      theme="dark"
-      mode="horizontal"
-      style={{ marginLeft: 'auto' }}
+const Header = () => {
+  const user = useSelector((state) => state.user);
+  const history = useHistory();
+
+  const handleLogout = () => {
+    logout();
+    history.push('/');
+    window.location.reload();
+  };
+
+  const loginButton = () => (
+    <Menu.Item key="login" style={{ marginLeft: 'auto' }}>
+      <NavLink to="/login">Login</NavLink>
+    </Menu.Item>
+  );
+
+  const logoutButton = () => (
+    <Menu.Item key="logout" style={{ marginLeft: 'auto' }}>
+      <span
+        role="button"
+        tabIndex={0}
+        onClick={handleLogout}
+        onKeyDown={handleLogout}
+      >
+        Logout
+      </span>
+    </Menu.Item>
+  );
+
+  return (
+    <Layout.Header
+      style={{
+        position: 'fixed',
+        zIndex: 1,
+        width: '100%',
+      }}
     >
-      <Menu.Item key="feed">
-        <Link to="/feed">Feed</Link>
-      </Menu.Item>
-      <Menu.Item key="places">
-        <Link to="/places">Places</Link>
-      </Menu.Item>
-      <Menu.Item key="checkin" style={{ marginLeft: 'auto' }}>
-        <Link to="/new-checkin">New checkin</Link>
-      </Menu.Item>
-    </Menu>
-  </Layout.Header>
-);
+      <div className="logo" />
+      <Menu className="navigation" theme="dark" mode="horizontal">
+        <Menu.Item key="feed">
+          <NavLink to="/feed">Feed</NavLink>
+        </Menu.Item>
+        <Menu.Item key="places">
+          <NavLink to="/places">Places</NavLink>
+        </Menu.Item>
+        <Menu.Item key="checkin">
+          <NavLink to="/new-checkin">New checkin</NavLink>
+        </Menu.Item>
+        {user.token ? logoutButton() : loginButton()}
+      </Menu>
+    </Layout.Header>
+  );
+};
 
 export default Header;
