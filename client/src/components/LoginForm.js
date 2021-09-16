@@ -1,11 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Form, Input } from 'antd';
 import { login } from '../reducers/userReducer';
 import FormWrapper from './FormWrapper';
 
 const LoginForm = () => {
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const [form] = Form.useForm();
@@ -14,7 +15,9 @@ const LoginForm = () => {
     const { email, password } = values;
     form.resetFields();
     await dispatch(login(email, password));
-    history.push('/feed');
+    if (user.token) {
+      history.push('/feed');
+    }
   };
   return (
     <FormWrapper
