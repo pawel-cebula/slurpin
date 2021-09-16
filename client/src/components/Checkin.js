@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import { Card, Rate, Tag } from 'antd';
+import { Button, Card, Rate, Tag } from 'antd';
 import { LikeTwoTone } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as Bowl } from '../static/bowl.svg';
-import Review from './Review';
 import { likeCheckin, unlikeCheckin } from '../reducers/checkinReducer';
 import { addUserLike, deleteUserLike } from '../reducers/userReducer';
+import Quote from './Quote';
 
 const Checkin = ({ checkin }) => {
   const user = useSelector((state) => state.user);
@@ -49,15 +49,13 @@ const Checkin = ({ checkin }) => {
         </div>
       }
       actions={[
-        <span
-          role="button"
-          tabIndex={0}
+        <Button
+          type="link"
           onClick={handleLike}
-          onKeyDown={handleLike}
           style={{ color: likeBtnColor }}
         >
           Like
-        </span>,
+        </Button>,
       ]}
       style={{ maxWidth: 768, margin: '20px auto' }}
     >
@@ -65,7 +63,7 @@ const Checkin = ({ checkin }) => {
         <span style={{ fontWeight: 'bold' }}>{checkin.personUsername}</span>{' '}
         said:
       </p>
-      <Review review={checkin.review} />
+      <Quote review={checkin.review} />
       <div
         style={{
           display: 'flex',

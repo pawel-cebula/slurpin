@@ -1,19 +1,10 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import Checkin from '../components/Checkin';
 import Spinner from '../components/Spinner';
-import { initializeCheckins } from '../reducers/checkinReducer';
 
 const Feed = () => {
   const checkins = useSelector((state) => state.checkins);
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!checkins.data && user.token) {
-      dispatch(initializeCheckins());
-    }
-  }, [dispatch]);
 
   return (
     <div>

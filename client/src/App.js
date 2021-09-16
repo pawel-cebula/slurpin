@@ -20,6 +20,7 @@ import { initializePlaces } from './reducers/placeReducer';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
 import Register from './pages/Register';
+import { initializeCheckins } from './reducers/checkinReducer';
 
 const { Content } = Layout;
 
@@ -45,6 +46,7 @@ function App() {
     if (user.token) {
       dispatch(initializeLikes(user.id));
       dispatch(initializePlaces());
+      dispatch(initializeCheckins());
     }
   }, [dispatch, user.token]);
 

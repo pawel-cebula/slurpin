@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import placeIcon from '../static/place.png';
 import PlaceRating from './PlaceRating';
-import Review from './Review';
+import Quote from './Quote';
 
 const Place = ({ place }) => {
   const averageRating =
@@ -38,7 +38,7 @@ const Place = ({ place }) => {
       ) : (
         <div>
           <p style={{ marginBottom: 0 }}>Recent review:</p>
-          <Review review={highlightedCheckin.review} />
+          <Quote quote={highlightedCheckin.review} />
         </div>
       )}
     </Card>

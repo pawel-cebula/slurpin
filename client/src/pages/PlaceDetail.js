@@ -1,18 +1,21 @@
-import { Card, Rate } from 'antd';
+import { Card } from 'antd';
+// import moment from 'moment';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import PlaceCheckin from '../components/PlaceCheckin';
+// import Quote from '../components/Quote';
 import Spinner from '../components/Spinner';
 import placeIcon from '../static/place.png';
 
 const PlaceDetail = () => {
   const [place, setPlace] = useState(null);
   const { id } = useParams();
-  const places = useSelector((state) => state.places.data);
+  const places = useSelector((state) => state.places);
 
   useEffect(() => {
-    if (places) {
-      setPlace(places.find((p) => p.id === id));
+    if (places.data) {
+      setPlace(places.data.find((p) => p.id === id));
     }
   }, [places]);
 
@@ -36,12 +39,27 @@ const PlaceDetail = () => {
             style={{ maxWidth: 768, margin: '20px auto' }}
           >
             {place.checkins.map((checkin) => (
-              <Card key={checkin.id}>
-                <p style={{ fontStyle: 'italic' }}>
-                  &quot;{checkin.review}&quot;
-                </p>
-                <Rate disabled defaultValue={checkin.rating} />
-              </Card>
+              <PlaceCheckin key={checkin.id} checkin={checkin} />
+              // <Card key={checkin.id} style={{ marginTop: '1em' }}>
+              //   <Rate
+              //     disabled
+              //     defaultValue={checkin.rating}
+              //     style={{ display: 'flex', justifyContent: 'flex-end' }}
+              //   />
+              //   <Quote quote={checkin.review || '...'} />
+              //   <div
+              //     style={{
+              //       display: 'flex',
+              //       justifyContent: 'space-between',
+              //       marginTop: '0.5em',
+              //     }}
+              //   >
+              //     <span style={{ fontWeight: 'bold' }}>Like</span>
+              //     <span style={{ color: '#bfbfbf' }}>
+              //       {moment(checkin.createdAt).fromNow()}
+              //     </span>
+              //   </div>
+              // </Card>
             ))}
           </Card>
         </>

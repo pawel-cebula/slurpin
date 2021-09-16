@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Review = ({ review }) => (
+const Quote = ({ quote }) => (
   <div
     style={{
       marginTop: '0.5em',
@@ -10,8 +10,8 @@ const Review = ({ review }) => (
       backgroundColor: '#fffbe6',
     }}
   >
-    <p style={{ fontStyle: 'italic', marginBottom: 0 }}>&quot;{review}&quot;</p>
+    <p style={{ fontStyle: 'italic', marginBottom: 0 }}>&quot;{quote}&quot;</p>
   </div>
 );
 
-export default Review;
+export default Quote;
