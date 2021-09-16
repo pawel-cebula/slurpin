@@ -68,6 +68,7 @@ const errorHandler = (err, req, res, next) => {
     }
   }
 
+  // Unknown server errors
   return res
     .status(500)
     .json({ error: `unknown server error: ${err.message}` });

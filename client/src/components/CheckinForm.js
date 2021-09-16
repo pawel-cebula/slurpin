@@ -18,8 +18,8 @@ const CheckinForm = () => {
       bowl,
       rating,
       review,
-      place_id: placeId,
-      person_id: user.id,
+      placeId,
+      personId: user.id,
     };
     form.resetFields();
     await dispatch(addCheckin(checkin));

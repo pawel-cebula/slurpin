@@ -38,7 +38,7 @@ const Checkin = ({ checkin }) => {
             style={{ width: 48, height: 48, marginRight: 16, flexShrink: 0 }}
           />
           <div>
-            <h3 style={{ marginBottom: 0 }}>{checkin.place_name}</h3>
+            <h3 style={{ marginBottom: 0 }}>{checkin.placeName}</h3>
             <Tag color="blue">{checkin.bowl}</Tag>
           </div>
           <Rate
@@ -62,7 +62,7 @@ const Checkin = ({ checkin }) => {
       style={{ maxWidth: 768, margin: '20px auto' }}
     >
       <p style={{ marginBottom: 0 }}>
-        <span style={{ fontWeight: 'bold' }}>{checkin.person_username}</span>{' '}
+        <span style={{ fontWeight: 'bold' }}>{checkin.personUsername}</span>{' '}
         said:
       </p>
       <Review review={checkin.review} />
@@ -84,7 +84,7 @@ const Checkin = ({ checkin }) => {
           )}
         </div>
         <span style={{ color: '#bfbfbf' }}>
-          {moment(checkin.created_at).fromNow()}
+          {moment(checkin.createdAt).fromNow()}
         </span>
       </div>
     </Card>

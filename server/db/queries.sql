@@ -1,4 +1,4 @@
--- Variations of queries used in routes
+-- Variations of queries used in routes for reference
 
 -- checkins with place and username
 SELECT c.id, rating, review, place_id, name AS place, person_id, username AS person_usernam

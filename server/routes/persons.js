@@ -3,37 +3,41 @@ const express = require('express');
 const personsRouter = express.Router();
 const db = require('../db');
 
-personsRouter.get('/:person_id/likes', async (req, res) => {
+personsRouter.get('/:personId/likes', async (req, res) => {
+  const { personId } = req.params;
   const likes = await db.query(
     `SELECT checkin_id FROM checkin_like WHERE person_id = $1`,
-    [req.params.person_id]
+    [personId]
   );
-  res.status(200).json(likes.rows.map((c) => c.checkin_id));
+  res.status(200).json(likes.rows.map((c) => c.checkinId));
 });
 
-personsRouter.get('/:person_id', async (req, res) => {
+personsRouter.get('/:personId', async (req, res) => {
+  const { personId } = req.params;
   const person = await db.query(
     `SELECT p.id, username, email, COALESCE(json_agg(c) FILTER (WHERE c.person_id IS NOT NULL), '[]'::json) AS checkins
     FROM person p
     LEFT JOIN checkin c ON p.id = c.person_id
     WHERE p.id = $1
     GROUP BY p.id`,
-    [req.params.person_id]
+    [personId]
   );
   res.status(200).json(person.rows);
 });
 
-personsRouter.put('/:person_id', async (req, res) => {
+personsRouter.put('/:personId', async (req, res) => {
+  const { personId } = req.params;
   const { username, email } = req.body;
   const updatedPerson = await db.query(
     'UPDATE person SET username = $1, email = $2 WHERE id = $3 RETURNING id, username, email',
-    [username, email, req.params.person_id]
+    [username, email, personId]
   );
   res.status(200).json(updatedPerson.rows[0]);
 });
 
-personsRouter.delete('/:person_id', async (req, res) => {
-  await db.query('DELETE FROM person WHERE id = $1', [req.params.person_id]);
+personsRouter.delete('/:personId', async (req, res) => {
+  const { personId } = req.params;
+  await db.query('DELETE FROM person WHERE id = $1', [personId]);
   res.status(204).end();
 });
 
