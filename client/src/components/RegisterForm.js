@@ -21,11 +21,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <FormWrapper
-      form={form}
-      onFinish={onFinish}
-      heading="Register and log in to access the app"
-    >
+    <FormWrapper form={form} onFinish={onFinish}>
       <Form.Item
         label="Username"
         name="username"

@@ -2,7 +2,7 @@ import { Card, Rate } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import RecentCheckin from './RecentCheckin';
-import placeIcon from '../assets/place.png';
+import placeIcon from '../static/place.png';
 
 const Place = ({ place }) => {
   const averageRating =

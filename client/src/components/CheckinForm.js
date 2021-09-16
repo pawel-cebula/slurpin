@@ -37,58 +37,51 @@ const CheckinForm = () => {
   ].map((option) => ({ label: option, value: option }));
 
   return (
-    <div>
-      <h1 style={{ textAlign: 'center' }}>Add a new checkin</h1>
-      <FormWrapper
-        form={form}
-        onFinish={onFinish}
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 16 }}
-        initialValues={{ personId: user.id }}
-        style={{ maxWidth: 768, margin: '30px auto' }}
+    <FormWrapper
+      form={form}
+      onFinish={onFinish}
+      labelCol={{ span: 4 }}
+      wrapperCol={{ span: 16 }}
+      initialValues={{ personId: user.id }}
+      style={{ maxWidth: 768, margin: '30px auto' }}
+    >
+      <Form.Item
+        name="placeId"
+        label="Place"
+        rules={[{ required: true, message: 'Please input the place name' }]}
       >
-        <Form.Item
-          name="placeId"
-          label="Place"
-          rules={[{ required: true, message: 'Please input the place name' }]}
-        >
-          <Select showSearch optionFilterProp="label">
-            {places &&
-              places.map((place) => (
-                <Select.Option
-                  key={place.id}
-                  value={place.id}
-                  label={place.name}
-                >
-                  {place.name}
-                </Select.Option>
-              ))}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          name="bowl"
-          label="Bowl"
-          rules={[
-            {
-              required: true,
-              message: 'Please select the bowl type',
-            },
-          ]}
-        >
-          <Select options={bowlOptions} />
-        </Form.Item>
-        <Form.Item name="review" label="Review">
-          <Input.TextArea />
-        </Form.Item>
-        <Form.Item
-          name="rating"
-          label="Rating"
-          rules={[{ required: true, message: 'Please select the rating' }]}
-        >
-          <Rate />
-        </Form.Item>
-      </FormWrapper>
-    </div>
+        <Select showSearch optionFilterProp="label">
+          {places &&
+            places.map((place) => (
+              <Select.Option key={place.id} value={place.id} label={place.name}>
+                {place.name}
+              </Select.Option>
+            ))}
+        </Select>
+      </Form.Item>
+      <Form.Item
+        name="bowl"
+        label="Bowl"
+        rules={[
+          {
+            required: true,
+            message: 'Please select the bowl type',
+          },
+        ]}
+      >
+        <Select options={bowlOptions} />
+      </Form.Item>
+      <Form.Item name="review" label="Review">
+        <Input.TextArea />
+      </Form.Item>
+      <Form.Item
+        name="rating"
+        label="Rating"
+        rules={[{ required: true, message: 'Please select the rating' }]}
+      >
+        <Rate />
+      </Form.Item>
+    </FormWrapper>
   );
 };
 

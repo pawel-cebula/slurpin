@@ -8,18 +8,18 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import { Layout, notification } from 'antd';
-import Feed from './containers/Feed';
+import Feed from './pages/Feed';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Places from './containers/Places';
+import Places from './pages/Places';
 import { initializeLikes, initializeUser } from './reducers/userReducer';
-import PlaceDetail from './containers/PlaceDetail';
-import NewCheckin from './containers/NewCheckin';
+import PlaceDetail from './pages/PlaceDetail';
+import NewCheckin from './pages/NewCheckin';
 import { removeError, removeSuccess } from './reducers/notificationReducer';
 import { initializePlaces } from './reducers/placeReducer';
-import Login from './containers/Login';
+import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
-import Register from './containers/Register';
+import Register from './pages/Register';
 
 const { Content } = Layout;
 

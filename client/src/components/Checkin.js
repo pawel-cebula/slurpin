@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Card, Rate, Tag } from 'antd';
 import { LikeTwoTone } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReactComponent as Bowl } from '../assets/bowl.svg';
+import { ReactComponent as Bowl } from '../static/bowl.svg';
 import Review from './Review';
 import { likeCheckin, unlikeCheckin } from '../reducers/checkinReducer';
 import { addUserLike, deleteUserLike } from '../reducers/userReducer';

@@ -20,11 +20,7 @@ const LoginForm = () => {
     }
   };
   return (
-    <FormWrapper
-      form={form}
-      onFinish={onFinish}
-      heading="Log in to access the app"
-    >
+    <FormWrapper form={form} onFinish={onFinish}>
       <Form.Item
         label="Email"
         name="email"
