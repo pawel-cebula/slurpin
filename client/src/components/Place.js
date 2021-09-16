@@ -1,8 +1,9 @@
-import { Card, Rate } from 'antd';
+import { Card } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import RecentCheckin from './RecentCheckin';
 import placeIcon from '../static/place.png';
+import PlaceRating from './PlaceRating';
+import Review from './Review';
 
 const Place = ({ place }) => {
   const averageRating =
@@ -12,6 +13,11 @@ const Place = ({ place }) => {
           place.checkins.length
         ).toFixed(1)
       : null;
+
+  const highlightedCheckin = place
+    ? place.checkins.find((c) => c.review !== '')
+    : null;
+
   return (
     <Card
       title={
@@ -22,26 +28,19 @@ const Place = ({ place }) => {
             style={{ width: 48, height: 48, marginRight: 16 }}
           />
           <Link to={`/places/${place.id}`}>{place.name}</Link>
-          {averageRating && (
-            <Rate
-              disabled
-              value={averageRating}
-              style={{ marginLeft: 'auto' }}
-            />
-          )}
-          <span
-            style={{
-              marginLeft: '0.5em',
-              color: '#bfbfbf',
-            }}
-          >
-            ({place.checkins.length})
-          </span>
+          <PlaceRating value={averageRating} checkins={place.checkins.length} />
         </div>
       }
       style={{ maxWidth: 768, margin: '20px auto' }}
     >
-      <RecentCheckin checkin={place.checkins[0]} />
+      {!highlightedCheckin || !highlightedCheckin.review ? (
+        'This place has no reviews yet'
+      ) : (
+        <div>
+          <p style={{ marginBottom: 0 }}>Recent review:</p>
+          <Review review={highlightedCheckin.review} />
+        </div>
+      )}
     </Card>
   );
 };
