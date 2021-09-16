@@ -23,8 +23,20 @@ const Place = ({ place }) => {
           />
           <Link to={`/places/${place.id}`}>{place.name}</Link>
           {averageRating && (
-            <Rate value={averageRating} style={{ marginLeft: 'auto' }} />
+            <Rate
+              disabled
+              value={averageRating}
+              style={{ marginLeft: 'auto' }}
+            />
           )}
+          <span
+            style={{
+              marginLeft: '0.5em',
+              color: '#bfbfbf',
+            }}
+          >
+            ({place.checkins.length})
+          </span>
         </div>
       }
       style={{ maxWidth: 768, margin: '20px auto' }}
