@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Button, Card, Rate, Tag } from 'antd';
 import { LikeTwoTone } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { ReactComponent as Bowl } from '../static/bowl.svg';
 import { likeCheckin, unlikeCheckin } from '../reducers/checkinReducer';
 import { addUserLike, deleteUserLike } from '../reducers/userReducer';
@@ -59,11 +60,15 @@ const Checkin = ({ checkin }) => {
       ]}
       style={{ maxWidth: 768, margin: '20px auto' }}
     >
-      <p style={{ marginBottom: 0 }}>
-        <span style={{ fontWeight: 'bold' }}>{checkin.personUsername}</span>{' '}
-        said:
-      </p>
-      <Quote review={checkin.review} />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <p style={{ marginBottom: 0 }}>
+          <span style={{ fontWeight: 'bold' }}>{checkin.personUsername}</span>{' '}
+          said:
+        </p>
+        <Link to={`/checkins/${checkin.id}/edit`}>Edit</Link>
+      </div>
+
+      <Quote quote={checkin.review} />
       <div
         style={{
           display: 'flex',

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { addCheckin } from '../reducers/checkinReducer';
 import FormWrapper from './FormWrapper';
 
-const CheckinForm = () => {
+const NewCheckinForm = () => {
   const places = useSelector((state) => state.places.data);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -85,4 +85,4 @@ const CheckinForm = () => {
   );
 };
 
-export default CheckinForm;
+export default NewCheckinForm;

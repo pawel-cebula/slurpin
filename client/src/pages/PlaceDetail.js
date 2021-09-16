@@ -1,10 +1,8 @@
 import { Card } from 'antd';
-// import moment from 'moment';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PlaceCheckin from '../components/PlaceCheckin';
-// import Quote from '../components/Quote';
 import Spinner from '../components/Spinner';
 import placeIcon from '../static/place.png';
 
@@ -40,26 +38,6 @@ const PlaceDetail = () => {
           >
             {place.checkins.map((checkin) => (
               <PlaceCheckin key={checkin.id} checkin={checkin} />
-              // <Card key={checkin.id} style={{ marginTop: '1em' }}>
-              //   <Rate
-              //     disabled
-              //     defaultValue={checkin.rating}
-              //     style={{ display: 'flex', justifyContent: 'flex-end' }}
-              //   />
-              //   <Quote quote={checkin.review || '...'} />
-              //   <div
-              //     style={{
-              //       display: 'flex',
-              //       justifyContent: 'space-between',
-              //       marginTop: '0.5em',
-              //     }}
-              //   >
-              //     <span style={{ fontWeight: 'bold' }}>Like</span>
-              //     <span style={{ color: '#bfbfbf' }}>
-              //       {moment(checkin.createdAt).fromNow()}
-              //     </span>
-              //   </div>
-              // </Card>
             ))}
           </Card>
         </>

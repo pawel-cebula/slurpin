@@ -12,6 +12,11 @@ const addNew = async (checkin) => {
   return response.data;
 };
 
+const edit = async (checkinId, checkin) => {
+  const response = await api.patch(`${url}/${checkinId}`, checkin);
+  return response.data;
+};
+
 const like = async (checkinId, personId) => {
   const response = await api.put(`${url}/${checkinId}/like`, {
     personId,
@@ -27,4 +32,4 @@ const unlike = async (checkinId, personId) => {
   return response.data;
 };
 
-export default { getAll, addNew, like, unlike };
+export default { getAll, addNew, edit, like, unlike };

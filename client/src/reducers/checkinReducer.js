@@ -26,6 +26,13 @@ const checkinReducer = (state = initialState, action) => {
       };
     case 'ADD_CHECKIN_FAILURE':
       return { ...state, isLoading: false, loaded: false };
+    case 'EDIT_CHECKIN':
+      return {
+        ...state,
+        data: state.data.map((checkin) =>
+          checkin.id === action.checkin.id ? action.checkin : checkin
+        ),
+      };
     case 'LIKE_CHECKIN':
       return {
         ...state,
@@ -69,6 +76,16 @@ export const addCheckin = (checkin) => async (dispatch) => {
   } catch {
     dispatch({ type: 'ADD_CHECKIN_FAILURE' });
     dispatch(addError('Failed to add new checkin'));
+  }
+};
+
+export const editCheckin = (checkinId, checkin) => async (dispatch) => {
+  try {
+    const editedCheckin = await checkinService.edit(checkinId, checkin);
+    dispatch({ type: 'EDIT_CHECKIN', checkin: editedCheckin });
+    dispatch(addSuccess('Successfully edited the checkin'));
+  } catch {
+    dispatch(addError('Failed to edit the checkin'));
   }
 };
 

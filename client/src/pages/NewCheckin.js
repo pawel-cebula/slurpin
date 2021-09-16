@@ -1,10 +1,10 @@
 import React from 'react';
-import CheckinForm from '../components/CheckinForm';
+import NewCheckinForm from '../components/NewCheckinForm';
 
 const NewCheckin = () => (
   <div>
     <h1>Add a new checkin</h1>
-    <CheckinForm />
+    <NewCheckinForm />
   </div>
 );
 

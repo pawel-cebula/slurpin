@@ -37,7 +37,7 @@ checkinsRouter.get('/:checkinId', async (req, res) => {
   res.status(200).json(checkin.rows[0]);
 });
 
-checkinsRouter.put('/:checkinId', async (req, res) => {
+checkinsRouter.patch('/:checkinId', async (req, res) => {
   const { checkinId } = req.params;
   const { rating, review, bowl } = req.body;
   const updatedCheckin = await db.query(
