@@ -1,8 +1,9 @@
 import { Form, Input } from 'antd';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import FormWrapper from '../components/FormWrapper';
+import { addError } from '../reducers/notificationReducer';
 import { edit } from '../reducers/userReducer';
 
 const EditUser = () => {
@@ -10,6 +11,7 @@ const EditUser = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const history = useHistory();
+  const { id } = useParams();
 
   const onFinish = async (values) => {
     const { username, email } = values;
@@ -20,6 +22,11 @@ const EditUser = () => {
     await dispatch(edit(user.id, editedUser));
     history.push(`/users/${user.id}`);
   };
+
+  if (user.id && id && user.id !== id) {
+    dispatch(addError('unauthorized access'));
+    return <p>Unauthorized access - you can only edit your own profile</p>;
+  }
 
   return (
     <div>
