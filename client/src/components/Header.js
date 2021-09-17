@@ -18,16 +18,21 @@ const Header = () => {
   const userButtons = () => {
     if (user.token) {
       return (
-        <Menu.Item key="logout" style={{ marginLeft: 'auto' }}>
-          <span
-            role="button"
-            tabIndex={0}
-            onClick={handleLogout}
-            onKeyDown={handleLogout}
-          >
-            Logout
-          </span>
-        </Menu.Item>
+        <>
+          <Menu.Item key="profile" style={{ marginLeft: 'auto' }}>
+            <NavLink to={`/users/${user.id}`}>Profile</NavLink>
+          </Menu.Item>
+          <Menu.Item key="logout">
+            <span
+              role="button"
+              tabIndex={0}
+              onClick={handleLogout}
+              onKeyDown={handleLogout}
+            >
+              Logout
+            </span>
+          </Menu.Item>
+        </>
       );
     }
     return (

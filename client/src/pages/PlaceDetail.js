@@ -2,7 +2,7 @@ import { Card } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import PlaceCheckin from '../components/PlaceCheckin';
+import CheckinSmall from '../components/CheckinSmall';
 import Spinner from '../components/Spinner';
 import placeIcon from '../static/place.png';
 
@@ -37,7 +37,7 @@ const PlaceDetail = () => {
             style={{ maxWidth: 768, margin: '20px auto' }}
           >
             {place.checkins.map((checkin) => (
-              <PlaceCheckin key={checkin.id} checkin={checkin} />
+              <CheckinSmall key={checkin.id} checkin={checkin} />
             ))}
           </Card>
         </>

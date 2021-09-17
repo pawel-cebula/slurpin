@@ -22,10 +22,10 @@ personsRouter.get('/:personId', async (req, res) => {
     GROUP BY p.id`,
     [personId]
   );
-  res.status(200).json(person.rows);
+  res.status(200).json(person.rows[0]);
 });
 
-personsRouter.put('/:personId', async (req, res) => {
+personsRouter.patch('/:personId', async (req, res) => {
   const { personId } = req.params;
   const { username, email } = req.body;
   const updatedPerson = await db.query(

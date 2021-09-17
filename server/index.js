@@ -24,7 +24,7 @@ app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api/places', authToken, placesRouter);
 app.use('/api/checkins', authToken, checkinsRouter);
-app.use('/api/persons', authToken, personsRouter);
+app.use('/api/persons', personsRouter);
 
 app.get('/', (req, res) => {
   res.send('home page');

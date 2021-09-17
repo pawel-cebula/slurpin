@@ -29,6 +29,9 @@ const userReducer = (state = initialState, action) => {
     case 'REGISTER': {
       return state;
     }
+    case 'EDIT_USER': {
+      return { ...state, ...action.data };
+    }
     case 'INIT_USER':
       return { ...state, ...action.data };
     case 'INIT_LIKES':
@@ -80,6 +83,21 @@ export const logout = () => {
   return {
     type: 'LOGOUT',
   };
+};
+
+export const edit = (userId, user) => async (dispatch) => {
+  try {
+    const editedUser = await personService.editById(userId, user);
+    const storage = JSON.parse(localStorage.getItem('user'));
+    localStorage.setItem('user', JSON.stringify({ ...storage, ...editedUser }));
+    dispatch({
+      type: 'EDIT_USER',
+      data: editedUser,
+    });
+    dispatch(addSuccess('Successfully edited user profile'));
+  } catch (error) {
+    dispatch(addError('Failed user profile edit attempt'));
+  }
 };
 
 export const initializeUser = (user) => ({

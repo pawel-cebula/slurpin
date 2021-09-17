@@ -22,6 +22,8 @@ import PrivateRoute from './components/PrivateRoute';
 import Register from './pages/Register';
 import { initializeCheckins } from './reducers/checkinReducer';
 import EditCheckin from './pages/EditCheckin';
+import UserProfile from './pages/UserProfile';
+import EditUser from './pages/EditUser';
 
 const { Content } = Layout;
 
@@ -95,6 +97,12 @@ function App() {
               </PrivateRoute>
               <PrivateRoute path="/checkins/:id/edit">
                 <EditCheckin />
+              </PrivateRoute>
+              <PrivateRoute path="/users/:id/edit">
+                <EditUser />
+              </PrivateRoute>
+              <PrivateRoute path="/users/:id">
+                <UserProfile />
               </PrivateRoute>
               <Route path="/register" component={Register} />
               <Route path="/login">

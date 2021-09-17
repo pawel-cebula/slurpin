@@ -6,7 +6,7 @@ import { likeCheckin, unlikeCheckin } from '../reducers/checkinReducer';
 import { addUserLike, deleteUserLike } from '../reducers/userReducer';
 import Quote from './Quote';
 
-const PlaceCheckin = ({ checkin }) => {
+const CheckinSmall = ({ checkin }) => {
   const user = useSelector((state) => state.user);
   const [liked, setLiked] = useState();
   const dispatch = useDispatch();
@@ -58,4 +58,4 @@ const PlaceCheckin = ({ checkin }) => {
   );
 };
 
-export default PlaceCheckin;
+export default CheckinSmall;

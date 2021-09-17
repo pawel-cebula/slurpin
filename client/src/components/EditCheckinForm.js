@@ -43,15 +43,12 @@ const EditCheckinForm = () => {
     <FormWrapper
       form={form}
       onFinish={onFinish}
-      labelCol={{ span: 4 }}
-      wrapperCol={{ span: 16 }}
       initialValues={{
         personId: user.id,
         bowl: checkin.bowl,
         review: checkin.review,
         rating: checkin.rating,
       }}
-      style={{ maxWidth: 768, margin: '30px auto' }}
     >
       <Form.Item
         name="bowl"
