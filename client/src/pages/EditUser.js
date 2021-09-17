@@ -12,7 +12,6 @@ const EditUser = () => {
   const history = useHistory();
 
   const onFinish = async (values) => {
-    console.log(values);
     const { username, email } = values;
     const editedUser = {
       username,
@@ -21,8 +20,6 @@ const EditUser = () => {
     await dispatch(edit(user.id, editedUser));
     history.push(`/users/${user.id}`);
   };
-
-  console.log('user', user);
 
   return (
     <div>

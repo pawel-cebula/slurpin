@@ -88,8 +88,11 @@ export const logout = () => {
 export const edit = (userId, user) => async (dispatch) => {
   try {
     const editedUser = await personService.editById(userId, user);
-    const storage = JSON.parse(localStorage.getItem('user'));
-    localStorage.setItem('user', JSON.stringify({ ...storage, ...editedUser }));
+    const userStorage = JSON.parse(localStorage.getItem('user'));
+    localStorage.setItem(
+      'user',
+      JSON.stringify({ ...userStorage, ...editedUser })
+    );
     dispatch({
       type: 'EDIT_USER',
       data: editedUser,

@@ -27,6 +27,10 @@ personsRouter.get('/:personId', async (req, res) => {
 
 personsRouter.patch('/:personId', async (req, res) => {
   const { personId } = req.params;
+  console.log('req.person in route', req.person);
+  if (req.person.id !== personId) {
+    return res.status(403).json({ error: 'unauthorized access' });
+  }
   const { username, email } = req.body;
   const updatedPerson = await db.query(
     'UPDATE person SET username = $1, email = $2 WHERE id = $3 RETURNING id, username, email',
@@ -37,6 +41,9 @@ personsRouter.patch('/:personId', async (req, res) => {
 
 personsRouter.delete('/:personId', async (req, res) => {
   const { personId } = req.params;
+  if (req.person.id !== personId) {
+    return res.status(403).json({ error: 'unauthorized access' });
+  }
   await db.query('DELETE FROM person WHERE id = $1', [personId]);
   res.status(204).end();
 });
