@@ -2,10 +2,12 @@ const express = require('express');
 
 const checkinsRouter = express.Router();
 const db = require('../db');
+const { userCheckinMatch } = require('../utils/middleware');
 
 checkinsRouter.put('/:checkinId/like', async (req, res) => {
   const { checkinId } = req.params;
-  const { personId } = req.body;
+  const { id: personId } = req.person;
+
   const checkinLike = await db.query(
     'INSERT INTO checkin_like (checkin_id, person_id) VALUES ($1, $2) RETURNING *',
     [checkinId, personId]
@@ -15,7 +17,9 @@ checkinsRouter.put('/:checkinId/like', async (req, res) => {
 
 checkinsRouter.delete('/:checkinId/like', async (req, res) => {
   const { checkinId } = req.params;
-  const { personId } = req.body;
+  // get rid of this since we have authToken and req.person?
+  const { id: personId } = req.person;
+
   await db.query(
     'DELETE FROM checkin_like WHERE checkin_id = $1 AND person_id = $2',
     [checkinId, personId]
@@ -37,7 +41,7 @@ checkinsRouter.get('/:checkinId', async (req, res) => {
   res.status(200).json(checkin.rows[0]);
 });
 
-checkinsRouter.patch('/:checkinId', async (req, res) => {
+checkinsRouter.patch('/:checkinId', userCheckinMatch, async (req, res) => {
   const { checkinId } = req.params;
   const { rating, review, bowl } = req.body;
   const updatedCheckin = await db.query(
@@ -47,7 +51,7 @@ checkinsRouter.patch('/:checkinId', async (req, res) => {
   res.status(200).json(updatedCheckin.rows[0]);
 });
 
-checkinsRouter.delete('/:checkinId', async (req, res) => {
+checkinsRouter.delete('/:checkinId', userCheckinMatch, async (req, res) => {
   const { checkinId } = req.params;
   await db.query('DELETE FROM checkin WHERE id = $1', [checkinId]);
   res.status(204).end();

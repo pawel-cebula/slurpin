@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const db = require('../db');
 
 const authToken = async (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -18,6 +19,38 @@ const authToken = async (req, res, next) => {
   }
 
   req.person = person;
+
+  next();
+};
+
+const userPersonMatch = async (req, res, next) => {
+  const { personId: paramPersonId } = req.params;
+  const { id: reqPersonId } = req.person;
+
+  if (paramPersonId !== reqPersonId) {
+    return res.status(403).json({
+      error:
+        'Unauthorized access - you cannot modify the profile of another user',
+    });
+  }
+
+  next();
+};
+
+const userCheckinMatch = async (req, res, next) => {
+  const { checkinId } = req.params;
+  const { id: userId } = req.person;
+
+  const checkin = await db.query(
+    'SELECT id, person_id FROM checkin WHERE id = $1',
+    [checkinId]
+  );
+
+  if (checkin.rows[0].personId !== userId) {
+    return res
+      .status(403)
+      .json({ error: 'You cannot delete the checkin of another user' });
+  }
 
   next();
 };
@@ -75,4 +108,10 @@ const errorHandler = (err, req, res, next) => {
     .json({ error: `unknown server error: ${err.message}` });
 };
 
-module.exports = { authToken, unknownEndpoint, errorHandler };
+module.exports = {
+  authToken,
+  userPersonMatch,
+  userCheckinMatch,
+  unknownEndpoint,
+  errorHandler,
+};
