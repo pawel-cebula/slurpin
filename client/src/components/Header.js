@@ -19,25 +19,18 @@ const Header = () => {
     if (user.token) {
       return (
         <>
-          <Menu.Item key="profile" style={{ marginLeft: 'auto' }}>
+          <Menu.Item key="profile" className="margin-left-auto">
             <NavLink to={`/users/${user.id}`}>Profile</NavLink>
           </Menu.Item>
-          <Menu.Item key="logout">
-            <span
-              role="button"
-              tabIndex={0}
-              onClick={handleLogout}
-              onKeyDown={handleLogout}
-            >
-              Logout
-            </span>
+          <Menu.Item key="logout" onClick={handleLogout}>
+            Logout
           </Menu.Item>
         </>
       );
     }
     return (
       <>
-        <Menu.Item key="register" style={{ marginLeft: 'auto' }}>
+        <Menu.Item key="register" className="margin-left-auto">
           <NavLink to="/register">Register</NavLink>
         </Menu.Item>
         <Menu.Item key="login">
@@ -48,31 +41,26 @@ const Header = () => {
   };
 
   return (
-    <Layout.Header
-      style={{
-        position: 'fixed',
-        zIndex: 1,
-        width: '100%',
-      }}
-    >
-      <div className="logo" />
-      <Menu
-        className="navigation"
-        theme="dark"
-        mode="horizontal"
-        selectedKeys={[location.pathname.slice(1)]}
-      >
-        <Menu.Item key="feed">
-          <NavLink to="/feed">Feed</NavLink>
-        </Menu.Item>
-        <Menu.Item key="places">
-          <NavLink to="/places">Places</NavLink>
-        </Menu.Item>
-        <Menu.Item key="checkin">
-          <NavLink to="/new-checkin">New checkin</NavLink>
-        </Menu.Item>
-        {userButtons()}
-      </Menu>
+    <Layout.Header className="header">
+      <div className="container">
+        <div className="logo" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          selectedKeys={[location.pathname.slice(1)]}
+        >
+          <Menu.Item key="feed">
+            <NavLink to="/feed">Feed</NavLink>
+          </Menu.Item>
+          <Menu.Item key="places">
+            <NavLink to="/places">Places</NavLink>
+          </Menu.Item>
+          <Menu.Item key="checkin">
+            <NavLink to="/new-checkin">New checkin</NavLink>
+          </Menu.Item>
+          {userButtons()}
+        </Menu>
+      </div>
     </Layout.Header>
   );
 };

@@ -1,10 +1,5 @@
 import React from 'react';
 import EditCheckinForm from '../components/EditCheckinForm';
-// import CheckinForm from '../components/NewCheckinForm';
-
-// onFinish = async (values) => {
-//   const {bowl, rating, review}
-// }
 
 const EditCheckin = () => (
   <div>

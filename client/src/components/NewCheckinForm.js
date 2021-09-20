@@ -37,14 +37,7 @@ const NewCheckinForm = () => {
   ].map((option) => ({ label: option, value: option }));
 
   return (
-    <FormWrapper
-      form={form}
-      onFinish={onFinish}
-      labelCol={{ span: 4 }}
-      wrapperCol={{ span: 16 }}
-      // initialValues={{ personId: user.id }}
-      style={{ maxWidth: 768, margin: '30px auto' }}
-    >
+    <FormWrapper form={form} onFinish={onFinish}>
       <Form.Item
         name="placeId"
         label="Place"

@@ -18,8 +18,6 @@ const Checkin = ({ checkin }) => {
     setLiked(user.likes.includes(checkin.id));
   }, [user]);
 
-  const likeBtnColor = liked ? '#1890ff' : '#8c8c8c';
-
   const handleLike = async () => {
     if (!liked) {
       await dispatch(likeCheckin(checkin.id, user.id));
@@ -33,60 +31,49 @@ const Checkin = ({ checkin }) => {
 
   return (
     <Card
+      className="card"
       title={
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Bowl
-            style={{ width: 48, height: 48, marginRight: 16, flexShrink: 0 }}
-          />
+        <div className="card-title">
+          <Bowl className="card-title-icon" />
           <div>
-            <h3 style={{ marginBottom: 0 }}>{checkin.placeName}</h3>
+            <h3 className="margin-zero">{checkin.placeName}</h3>
             <Tag color="blue">{checkin.bowl}</Tag>
           </div>
           <Rate
             disabled
             defaultValue={checkin.rating}
-            style={{ marginLeft: 'auto' }}
+            className="margin-left-auto"
           />
         </div>
       }
       actions={[
         <Button
-          type="link"
+          type="text"
           onClick={handleLike}
-          style={{ color: likeBtnColor }}
+          className={`card-button ${liked ? 'card-button-clicked' : ''}`}
         >
           Like
         </Button>,
       ]}
-      style={{ maxWidth: 768, margin: '20px auto' }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <p style={{ marginBottom: 0 }}>
-          <span style={{ fontWeight: 'bold' }}>{checkin.personUsername}</span>{' '}
-          said:
+      <div className="flex-between">
+        <p className="margin-zero">
+          <span className="bold">{checkin.personUsername}</span> said:
         </p>
         <Link to={`/checkins/${checkin.id}/edit`}>Edit</Link>
       </div>
 
       <Quote quote={checkin.review} />
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          margin: '1em 0 0',
-        }}
-      >
+      <div className="flex-between margin-top">
         <div>
           {checkin.likes > 0 && (
             <>
-              <LikeTwoTone
-                style={{ fontSize: '1.2rem', marginRight: '0.2em' }}
-              />
+              <LikeTwoTone className="like-icon" />
               <span>{checkin.likes}</span>
             </>
           )}
         </div>
-        <span style={{ color: '#bfbfbf' }}>
+        <span className="light-grey">
           {moment(checkin.createdAt).fromNow()}
         </span>
       </div>

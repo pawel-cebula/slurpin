@@ -11,11 +11,11 @@ const FormWrapper = ({
   ...rest
 }) => (
   <Form
+    className="form"
     form={form}
     onFinish={onFinish}
     labelCol={{ span: 4 }}
     wrapperCol={{ span: 16 }}
-    style={{ maxWidth: 768, margin: '30px auto' }}
     // eslint-disable-next-line react/jsx-props-no-spreading
     {...rest}
   >

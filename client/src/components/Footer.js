@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from 'antd';
 
 const Footer = () => (
-  <Layout.Footer style={{ textAlign: 'center' }}>
+  <Layout.Footer className="text-center">
     slurpin.club ©2021 Created by pawelcebula.com
   </Layout.Footer>
 );

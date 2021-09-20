@@ -15,8 +15,6 @@ const CheckinSmall = ({ checkin }) => {
     setLiked(user.likes.includes(checkin.id));
   }, [user]);
 
-  const likeBtnColor = liked ? '#1890ff' : '#8c8c8c';
-
   const handleLike = async () => {
     if (!liked) {
       await dispatch(likeCheckin(checkin.id, user.id));
@@ -29,28 +27,18 @@ const CheckinSmall = ({ checkin }) => {
   };
 
   return (
-    <Card key={checkin.id} style={{ marginTop: '1em' }}>
-      <Rate
-        disabled
-        defaultValue={checkin.rating}
-        style={{ display: 'flex', justifyContent: 'flex-end' }}
-      />
+    <Card key={checkin.id} className="card margin-top">
+      <Rate disabled defaultValue={checkin.rating} className="flex-end" />
       <Quote quote={checkin.review || '...'} />
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginTop: '0.5em',
-        }}
-      >
+      <div className="flex-between">
         <Button
-          type="link"
+          type="text"
           onClick={handleLike}
-          style={{ color: likeBtnColor }}
+          className={`card-button${liked ? ' card-button-clicked' : ''}`}
         >
           Like
         </Button>
-        <span style={{ color: '#bfbfbf' }}>
+        <span className="light-grey">
           {moment(checkin.createdAt).fromNow()}
         </span>
       </div>

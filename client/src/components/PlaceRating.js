@@ -2,16 +2,9 @@ import { Rate } from 'antd';
 import React from 'react';
 
 const PlaceRating = ({ value, checkins }) => (
-  <div style={{ marginLeft: 'auto' }}>
+  <div className="margin-left-auto">
     <Rate disabled value={value || 0} />
-    <span
-      style={{
-        marginLeft: '0.5em',
-        color: '#bfbfbf',
-      }}
-    >
-      ({checkins})
-    </span>
+    <span className="light-grey">({checkins})</span>
   </div>
 );
 

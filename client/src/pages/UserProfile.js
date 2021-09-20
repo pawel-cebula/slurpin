@@ -25,10 +25,10 @@ const UserProfile = () => {
   if (!user) return <Spinner />;
 
   return (
-    <div style={{ maxWidth: 768, margin: '20px auto' }}>
+    <div>
       <h1>User Profile</h1>
       <Card
-        style={{ textAlign: 'center' }}
+        className="card text-center"
         actions={
           loggedUser.id === user.id
             ? [
@@ -41,7 +41,7 @@ const UserProfile = () => {
       >
         <Card.Meta title={user.username} description={user.email} />
       </Card>
-      <p style={{ marginTop: '2em', textAlign: 'center', fontWeight: 'bold' }}>
+      <p className="margin-top text-center bold">
         Activity: {user.checkins.length} checkins to date
       </p>
       {user.checkins.map((checkin) => (

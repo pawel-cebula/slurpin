@@ -74,14 +74,8 @@ function App() {
     <Router>
       <Layout className="App">
         <Header />
-        <Content
-          className="site-layout"
-          style={{ padding: '0 50px', marginTop: 128 }}
-        >
-          <div
-            className="site-layout-background"
-            style={{ padding: 24, minHeight: 380 }}
-          >
+        <Content className="main">
+          <div className="container site-layout">
             <Switch>
               <PrivateRoute path="/feed">
                 <Feed />
@@ -113,8 +107,8 @@ function App() {
               </Route>
             </Switch>
           </div>
-          <Footer />
         </Content>
+        <Footer />
       </Layout>
     </Router>
   );

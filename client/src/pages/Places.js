@@ -30,13 +30,7 @@ const Places = () => {
       {placesState.isLoading && <Spinner />}
       {places && (
         <div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              color: '#bfbfbf',
-            }}
-          >
+          <div className="flex-center light-grey">
             Sort by number of checkins:&nbsp;
             <Radio.Group onChange={onChange} value={sort}>
               <Radio value="desc">

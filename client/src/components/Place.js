@@ -14,30 +14,25 @@ const Place = ({ place }) => {
         ).toFixed(1)
       : null;
 
-  const highlightedCheckin = place
-    ? place.checkins.find((c) => c.review !== '')
-    : null;
+  const highlightedCheckin =
+    place && place.checkins.find((c) => c.review !== '');
 
   return (
     <Card
+      className="card"
       title={
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <img
-            src={placeIcon}
-            alt=""
-            style={{ width: 48, height: 48, marginRight: 16 }}
-          />
+        <div className="card-title">
+          <img src={placeIcon} alt="" className="card-title-icon" />
           <Link to={`/places/${place.id}`}>{place.name}</Link>
           <PlaceRating value={averageRating} checkins={place.checkins.length} />
         </div>
       }
-      style={{ maxWidth: 768, margin: '20px auto' }}
     >
       {!highlightedCheckin || !highlightedCheckin.review ? (
         'This place has no reviews yet'
       ) : (
         <div>
-          <p style={{ marginBottom: 0 }}>Recent review:</p>
+          <p className="margin-zero">Recent review:</p>
           <Quote quote={highlightedCheckin.review} />
         </div>
       )}

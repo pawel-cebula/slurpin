@@ -24,18 +24,17 @@ const PlaceDetail = () => {
         <>
           <h1>More information about {place.name}</h1>
           <Card
+            className="card"
             title={
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img
-                  src={placeIcon}
-                  alt=""
-                  style={{ width: 48, height: 48, marginRight: 16 }}
-                />
+              <div className="card-title">
+                <img src={placeIcon} alt="" className="card-title-icon" />
                 {place.name}
               </div>
             }
-            style={{ maxWidth: 768, margin: '20px auto' }}
           >
+            <p className="text-center bold">
+              {place.checkins.length} checkins:
+            </p>
             {place.checkins.map((checkin) => (
               <CheckinSmall key={checkin.id} checkin={checkin} />
             ))}
