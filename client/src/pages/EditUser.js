@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import FormWrapper from '../components/FormWrapper';
+import errorCodes from '../constants/errorCodes';
 import { addError } from '../reducers/notificationReducer';
 import { edit } from '../reducers/userReducer';
 
@@ -24,7 +25,7 @@ const EditUser = () => {
   };
 
   if (user.id && id && user.id !== id) {
-    dispatch(addError('unauthorized access'));
+    dispatch(addError(errorCodes.unauthorizedAccess));
     return <p>Unauthorized access - you can only edit your own profile</p>;
   }
 

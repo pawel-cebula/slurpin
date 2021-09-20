@@ -17,6 +17,7 @@
     "no-console": "off", // enabled while developing
     "camelcase": "off", // enabled because of database naming
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/prop-types": [0]
+    "react/prop-types": [0],
+    "no-nested-ternary": "off"
   }
 }

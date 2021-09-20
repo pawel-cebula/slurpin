@@ -1,6 +1,8 @@
 import personService from '../services/persons';
 import authService from '../services/auth';
 import { addError, addSuccess } from './notificationReducer';
+import errorCodes from '../constants/errorCodes';
+import successCodes from '../constants/successCodes';
 
 const userInfo = JSON.parse(localStorage.getItem('user'));
 
@@ -54,12 +56,15 @@ export const register = (username, email, password) => async (dispatch) => {
     dispatch({
       type: 'REGISTER',
     });
-    dispatch(
-      addSuccess('Successfully registered an account - you can now log in')
-    );
+    dispatch(addSuccess(successCodes.registerUser));
   } catch (error) {
-    const notification = error.response?.data?.error;
-    dispatch(addError(`Failed to register a new user - ${notification}`));
+    const reason = error.response?.data?.error;
+    const notification = reason.includes('duplicate username')
+      ? errorCodes.duplicateUsername
+      : reason.includes('duplicate email')
+      ? errorCodes.duplicateEmail
+      : errorCodes.failedRegister;
+    dispatch(addError(notification));
   }
 };
 
@@ -74,7 +79,7 @@ export const login = (email, password) => async (dispatch) => {
       data: user,
     });
   } catch (error) {
-    dispatch(addError('Failed login attempt'));
+    dispatch(addError(errorCodes.failedLogin));
   }
 };
 
@@ -97,9 +102,9 @@ export const edit = (userId, user) => async (dispatch) => {
       type: 'EDIT_USER',
       data: editedUser,
     });
-    dispatch(addSuccess('Successfully edited user profile'));
+    dispatch(addSuccess(successCodes.editUser));
   } catch (error) {
-    dispatch(addError('Failed user profile edit attempt'));
+    dispatch(addError(errorCodes.failedEdit));
   }
 };
 

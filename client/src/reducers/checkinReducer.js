@@ -1,3 +1,5 @@
+import errorCodes from '../constants/errorCodes';
+import successCodes from '../constants/successCodes';
 import checkinService from '../services/checkins';
 import { addError, addSuccess } from './notificationReducer';
 
@@ -63,7 +65,7 @@ export const initializeCheckins = () => async (dispatch) => {
     dispatch({ type: 'INIT_CHECKINS_SUCCESS', data: checkins });
   } catch {
     dispatch({ type: 'INIT_CHECKINS_FAILURE' });
-    dispatch(addError('Failed to fetch checkins'));
+    dispatch(addError(errorCodes.failedFetch));
   }
 };
 
@@ -72,10 +74,10 @@ export const addCheckin = (checkin) => async (dispatch) => {
     dispatch({ type: 'ADD_CHECKIN_REQUEST' });
     const newCheckin = await checkinService.addNew(checkin);
     dispatch({ type: 'ADD_CHECKIN_SUCCESS', checkin: newCheckin });
-    dispatch(addSuccess('Successfully added new checkin'));
+    dispatch(addSuccess(successCodes.newCheckin));
   } catch {
     dispatch({ type: 'ADD_CHECKIN_FAILURE' });
-    dispatch(addError('Failed to add new checkin'));
+    dispatch(addError(errorCodes.failedSubmit));
   }
 };
 
@@ -83,9 +85,9 @@ export const editCheckin = (checkinId, checkin) => async (dispatch) => {
   try {
     const editedCheckin = await checkinService.edit(checkinId, checkin);
     dispatch({ type: 'EDIT_CHECKIN', checkin: editedCheckin });
-    dispatch(addSuccess('Successfully edited the checkin'));
+    dispatch(addSuccess(successCodes.editCheckin));
   } catch {
-    dispatch(addError('Failed to edit the checkin'));
+    dispatch(addError(errorCodes.failedSubmit));
   }
 };
 

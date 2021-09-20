@@ -19,7 +19,6 @@ const authToken = async (req, res, next) => {
 
   req.person = person;
 
-  console.log('req.person in middleware', req.person);
   next();
 };
 

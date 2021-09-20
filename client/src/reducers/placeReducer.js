@@ -1,3 +1,4 @@
+import errorCodes from '../constants/errorCodes';
 import placeService from '../services/places';
 import { addError } from './notificationReducer';
 
@@ -27,7 +28,7 @@ export const initializePlaces = () => async (dispatch) => {
     dispatch({ type: 'INIT_PLACES_SUCCESS', data: places });
   } catch (error) {
     dispatch({ type: 'INIT_PLACES_FAILURE' });
-    dispatch(addError('Failed to fetch places'));
+    dispatch(addError(errorCodes.failedFetch));
   }
 };
 
