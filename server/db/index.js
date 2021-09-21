@@ -1,8 +1,7 @@
 const { Pool } = require('pg');
 const humps = require('humps');
-
-// takes user, host, database, password, port from .env
-const pool = new Pool();
+const { PG_CONFIG } = require('../utils/config');
+const pool = new Pool(PG_CONFIG);
 
 module.exports = {
   query: async (text, params) => {

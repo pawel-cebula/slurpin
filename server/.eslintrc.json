@@ -1,10 +1,15 @@
 {
+  "env": {
+    // "node": true, // Enables Node.js global variables and Node.js scoping.
+    "jest/globals": true
+  },
   "extends": ["airbnb-base", "prettier", "plugin:node/recommended"],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error",
     "no-console": "off",
     "camelcase": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "node/no-unpublished-require": 0
   }
 }

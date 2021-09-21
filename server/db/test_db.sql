@@ -1,7 +1,7 @@
-DROP DATABASE slurpin;
-CREATE DATABASE slurpin WITH ENCODING='UTF8';
+DROP DATABASE slurpin_test;
+CREATE DATABASE slurpin_test WITH ENCODING='UTF8';
 
-\c slurpin
+\c slurpin_test
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
