@@ -17,7 +17,6 @@ checkinsRouter.put('/:checkinId/like', async (req, res) => {
 
 checkinsRouter.delete('/:checkinId/like', async (req, res) => {
   const { checkinId } = req.params;
-  // get rid of this since we have authToken and req.person?
   const { id: personId } = req.person;
 
   await db.query(

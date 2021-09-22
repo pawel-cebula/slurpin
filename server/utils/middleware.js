@@ -49,7 +49,7 @@ const userCheckinMatch = async (req, res, next) => {
   if (checkin.rows[0].personId !== userId) {
     return res
       .status(403)
-      .json({ error: 'You cannot delete the checkin of another user' });
+      .json({ error: 'You cannot modify the checkin of another user' });
   }
 
   next();
@@ -72,7 +72,7 @@ const errorHandler = (err, req, res, next) => {
     }
 
     if (err.code === '22P02') {
-      return res.status(400).json({ error: 'malformatted ID' });
+      return res.status(400).json({ error: 'malformatted ID or other inputs' });
     }
 
     if (err.code.startsWith('22')) {

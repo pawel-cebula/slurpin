@@ -5,7 +5,6 @@ const api = supertest(app);
 const baseUrl = '/api/places';
 
 let token;
-let userId;
 let placesLength;
 let getPlaces;
 let samplePlace;
@@ -15,7 +14,6 @@ beforeAll(async () => {
     .post('/api/auth/login')
     .send({ email: 'admin@gmail.com', password: 'password123' });
   token = response.body.token;
-  userId = response.body.id;
   getPlaces = async () => {
     const response = await api
       .get('/api/places')
@@ -80,7 +78,7 @@ describe('/places POST', () => {
   });
 });
 
-describe('places/:placeId', () => {
+describe('/places/:placeId', () => {
   beforeEach(async () => {
     const places = await getPlaces();
     samplePlace = places.find((place) => place.checkins.length > 0);
@@ -99,7 +97,7 @@ describe('places/:placeId', () => {
       .get(`${baseUrl}/abcdef123456`)
       .set('Authorization', `Bearer ${token}`)
       .expect(400);
-    expect(response.body.error).toEqual('malformatted ID');
+    expect(response.body.error).toMatch('malformatted ID');
   });
 
   test('PUT edits correctly', async () => {
@@ -109,16 +107,16 @@ describe('places/:placeId', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
     expect(response.body.name).toEqual(samplePlace.name + '123');
-    console.log('response.body.updatedAt', response.body.updatedAt);
-    console.log('samplePlace.updatedA', samplePlace.updatedAt);
     expect(response.body.updatedAt).not.toEqual(samplePlace.updatedAt);
   });
 
-  test('/checkins GET returns the array of checkins', async () => {
+  test('/places/:placeId/checkins GET returns the array of checkins', async () => {
     const response = await api
       .get(`${baseUrl}/${samplePlace.id}/checkins`)
       .set('Authorization', `Bearer ${token}`)
-      .expect(200);
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+    expect(response.body).toHaveLength(samplePlace.checkins.length);
     // Doesn't work because json_agg removes TZ info from dates
     // expect(response.body).toEqual(samplePlace.checkins);
   });
