@@ -20,7 +20,6 @@ authRouter.post('/register', async (req, res) => {
     [username, email, passwordHash]
   );
 
-  // remove password hash from response?
   res.status(201).json(newPerson.rows[0]);
 });
 

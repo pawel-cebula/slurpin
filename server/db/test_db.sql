@@ -1,4 +1,4 @@
-DROP DATABASE slurpin_test;
+DROP DATABASE IF EXISTS slurpin_test;
 CREATE DATABASE slurpin_test WITH ENCODING='UTF8';
 
 \c slurpin_test
@@ -103,7 +103,7 @@ EXECUTE PROCEDURE trigger_delete_like();
 
 INSERT INTO place(name, id) VALUES ('Cocolo Ramen Mitte', 'c8647c26-0c20-414a-88ca-35906b346585'), ('Cocolo Ramen Kreuzberg', '7181dafc-b2ca-48bf-8d09-a743bd4b2897'), ('Takumi Nine', '641c205c-4576-4d69-b374-98e8f5222052'), ('Hako Ramen Boxi', '8ed074a3-508f-472d-879d-6021897ce608'), ('Makoto Ramen', 'f902d778-5d57-4c24-911e-4d6da1813460');
 
-INSERT INTO person(username, email, id, password) VALUES ('pawel-123', 'pawel-123@gmail.com', '272de710-f5c5-4c23-b86f-cd64542115f3', 'dummy hash'), ('ramen-freak', 'ramenfreak123@gmail.com', '68f6cfed-9351-4243-a74d-5512bd610447', 'dummy hash'), ('emptybowl', 'fake-email321@gmail.com', '3b3cbff4-8472-47f5-86ca-962f38c00774', 'dummy hash');
+INSERT INTO person(username, email, id, password) VALUES ('admin', 'admin@gmail.com', '5eca6b63-1e5a-4f41-8acd-ebd947a04ec6', '$2a$10$PIDtbKljU57OgHr3zP7eS.0E20Vo/RmQcAWEw4FLFN9dgy1Fg2/aG'), ('pawel-123', 'pawel-123@gmail.com', '272de710-f5c5-4c23-b86f-cd64542115f3', 'dummy hash'), ('ramen-freak', 'ramenfreak123@gmail.com', '68f6cfed-9351-4243-a74d-5512bd610447', 'dummy hash'), ('emptybowl', 'fake-email321@gmail.com', '3b3cbff4-8472-47f5-86ca-962f38c00774', 'dummy hash');
 
 INSERT INTO checkin (bowl, rating, review, place_id, person_id, id) VALUES
   ('Tonkotsu', 4, 'Pretty good tonkotsu, noodles a bit too soft though.', 'c8647c26-0c20-414a-88ca-35906b346585', '272de710-f5c5-4c23-b86f-cd64542115f3', '92d19c1b-0641-4616-bec8-2ebc9275b6c5'),
