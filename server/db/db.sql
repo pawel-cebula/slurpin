@@ -114,4 +114,5 @@ INSERT INTO checkin (bowl, rating, review, place_id, person_id, id) VALUES
 
 INSERT INTO checkin_like (checkin_id, person_id) VALUES 
   ('92d19c1b-0641-4616-bec8-2ebc9275b6c5', '68f6cfed-9351-4243-a74d-5512bd610447'), 
-  ('50b55991-426b-4a36-8d19-96142652d101', '68f6cfed-9351-4243-a74d-5512bd610447');
+  ('50b55991-426b-4a36-8d19-96142652d101', '68f6cfed-9351-4243-a74d-5512bd610447'),
+  ('50b55991-426b-4a36-8d19-96142652d101', '5eca6b63-1e5a-4f41-8acd-ebd947a04ec6');

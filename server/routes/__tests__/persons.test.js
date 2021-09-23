@@ -13,8 +13,6 @@ beforeAll(async () => {
     .post('/api/auth/login')
     .send({ email: 'admin@gmail.com', password: 'password123' });
   user = response.body;
-  // token = response.body.token;
-  // userId = response.body.id;
   getPersons = async () => {
     const response = await api
       .get(baseUrl)
