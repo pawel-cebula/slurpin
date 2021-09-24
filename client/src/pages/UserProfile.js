@@ -32,7 +32,10 @@ const UserProfile = () => {
         actions={
           loggedUser.id === user.id
             ? [
-                <Link to={`/users/${loggedUser.id}/edit`}>
+                <Link
+                  to={`/users/${loggedUser.id}/edit`}
+                  className="user-profile-edit"
+                >
                   <EditOutlined key="edit" />
                 </Link>,
               ]

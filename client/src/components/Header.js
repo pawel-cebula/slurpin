@@ -20,9 +20,11 @@ const Header = () => {
       return (
         <>
           <Menu.Item key="profile" className="margin-left-auto">
-            <NavLink to={`/users/${user.id}`}>Profile</NavLink>
+            <NavLink to={`/users/${user.id}`} id="nav-profile">
+              Profile
+            </NavLink>
           </Menu.Item>
-          <Menu.Item key="logout" onClick={handleLogout}>
+          <Menu.Item key="logout" id="nav-logout" onClick={handleLogout}>
             Logout
           </Menu.Item>
         </>
@@ -31,10 +33,14 @@ const Header = () => {
     return (
       <>
         <Menu.Item key="register" className="margin-left-auto">
-          <NavLink to="/register">Register</NavLink>
+          <NavLink to="/register" id="nav-register">
+            Register
+          </NavLink>
         </Menu.Item>
         <Menu.Item key="login">
-          <NavLink to="/login">Login</NavLink>
+          <NavLink to="/login" id="nav-login">
+            Login
+          </NavLink>
         </Menu.Item>
       </>
     );
@@ -50,13 +56,19 @@ const Header = () => {
           selectedKeys={[location.pathname.slice(1)]}
         >
           <Menu.Item key="feed">
-            <NavLink to="/feed">Feed</NavLink>
+            <NavLink to="/feed" id="nav-feed">
+              Feed
+            </NavLink>
           </Menu.Item>
           <Menu.Item key="places">
-            <NavLink to="/places">Places</NavLink>
+            <NavLink to="/places" id="nav-places">
+              Places
+            </NavLink>
           </Menu.Item>
           <Menu.Item key="checkin">
-            <NavLink to="/new-checkin">New checkin</NavLink>
+            <NavLink to="/new-checkin" id="nav-new-checkin">
+              New checkin
+            </NavLink>
           </Menu.Item>
           {userButtons()}
         </Menu>

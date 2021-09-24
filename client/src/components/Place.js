@@ -19,11 +19,13 @@ const Place = ({ place }) => {
 
   return (
     <Card
-      className="card"
+      className="card places-place"
       title={
         <div className="card-title">
           <img src={placeIcon} alt="" className="card-title-icon" />
-          <Link to={`/places/${place.id}`}>{place.name}</Link>
+          <Link to={`/places/${place.id}`} className="place-detail-link">
+            {place.name}
+          </Link>
           <PlaceRating value={averageRating} checkins={place.checkins.length} />
         </div>
       }

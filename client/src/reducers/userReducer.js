@@ -114,11 +114,18 @@ export const initializeUser = (user) => ({
 });
 
 export const initializeLikes = (userId) => async (dispatch) => {
-  const likes = await personService.getLikes(userId);
-  dispatch({
-    type: 'INIT_LIKES',
-    likes,
-  });
+  try {
+    const likes = await personService.getLikes(userId);
+    dispatch({
+      type: 'INIT_LIKES',
+      likes,
+    });
+  } catch {
+    dispatch({
+      type: 'INIT_LIKES',
+      likes: [],
+    });
+  }
 };
 
 export const addUserLike = (checkinId) => ({

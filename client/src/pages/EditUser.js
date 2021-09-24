@@ -1,7 +1,7 @@
 import { Form, Input } from 'antd';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Redirect } from 'react-router-dom';
 import FormWrapper from '../components/FormWrapper';
 import errorCodes from '../constants/errorCodes';
 import { addError } from '../reducers/notificationReducer';
@@ -26,7 +26,7 @@ const EditUser = () => {
 
   if (user.id && id && user.id !== id) {
     dispatch(addError(errorCodes.unauthorizedAccess));
-    return <p>Unauthorized access - you can only edit your own profile</p>;
+    return <Redirect to={`/users/${user.id}`} />;
   }
 
   return (

@@ -27,7 +27,7 @@ const CheckinSmall = ({ checkin }) => {
   };
 
   return (
-    <Card key={checkin.id} className="card margin-top">
+    <Card key={checkin.id} className="card margin-top checkin-small">
       <Rate disabled defaultValue={checkin.rating} className="flex-end" />
       <Quote quote={checkin.review || '...'} />
       <div className="flex-between">

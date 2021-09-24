@@ -31,7 +31,7 @@ const Checkin = ({ checkin }) => {
 
   return (
     <Card
-      className="card"
+      className="card feed-checkin"
       title={
         <div className="card-title">
           <Bowl className="card-title-icon" />
@@ -58,9 +58,17 @@ const Checkin = ({ checkin }) => {
     >
       <div className="flex-between">
         <p className="margin-zero">
-          <span className="bold">{checkin.personUsername}</span> said:
+          <Link
+            to={`/users/${checkin.personId}`}
+            className="bold checkin-user-profile"
+          >
+            {checkin.personUsername}
+          </Link>{' '}
+          said:
         </p>
-        <Link to={`/checkins/${checkin.id}/edit`}>Edit</Link>
+        {checkin.personId === user.id && (
+          <Link to={`/checkins/${checkin.id}/edit`}>Edit</Link>
+        )}
       </div>
 
       <Quote quote={checkin.review} />
@@ -73,7 +81,7 @@ const Checkin = ({ checkin }) => {
             </>
           )}
         </div>
-        <span className="light-grey">
+        <span className="light-grey checkin-created-at">
           {moment(checkin.createdAt).fromNow()}
         </span>
       </div>
