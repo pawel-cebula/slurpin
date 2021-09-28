@@ -49,7 +49,6 @@ const Header = () => {
   return (
     <Layout.Header className="header">
       <div className="container">
-        {/* <div className="logo" /> */}
         <div className="logo">
           <NavLink to="/">slurpin</NavLink>
         </div>
