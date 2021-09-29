@@ -15,14 +15,6 @@ const {
 } = require('./utils/middleware');
 const authRouter = require('./routes/auth');
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-
-  app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
-}
-
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('tiny'));
 }
@@ -37,6 +29,14 @@ app.use('/api/persons', authToken, personsRouter);
 app.get('/health', (req, res) => {
   res.json({ ping: 'pong' });
 });
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 
 app.use(unknownEndpoint);
 
