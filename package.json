@@ -15,7 +15,7 @@
   "author": "pawelcebula.com",
   "license": "MIT",
   "engines": {
-    "node": "14.7.4",
+    "node": "14.17.4",
     "npm": "6.14.14"
   },
   "dependencies": {
