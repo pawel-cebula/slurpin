@@ -27,7 +27,8 @@
     "eject": "react-scripts eject",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint --fix .",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "browserslist": {
     "production": [

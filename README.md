@@ -217,7 +217,7 @@ Ran all test suites.
 pawelcebula@Pawels-Air server %
 ```
 
-## Setting up and running frontend end-to-end testing locally (browser test runner)
+## Setting up and running frontend end-to-end testing locally
 
 1. Set up the test database (see above)
 
@@ -235,10 +235,41 @@ npm start
 
 4. Launch the Cypress test runner from `client` folder
 
+- 4.a. Browser test runner
+
 ```
 npm run cypress:open
 ```
 
-5. In the popup window that opens, select preferred broswer in the top right corner (i.e. Chrome)
+In the popup window that opens, select preferred broswer in the top right corner (i.e. Chrome)
 
-6. Run all tests by clicking on `Run X integrations specs` below the browser selection dropdown
+Run all tests by clicking on `Run X integrations specs` below the browser selection dropdown
+
+- 4.b. Console test runner (video recording is off by default - can be modified in `cypress.json`)
+
+```
+npm run cypress:run
+```
+
+Once the tests are finished, you should see something like this
+
+```
+ (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✔  auth.spec.js                             00:15        5        5        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ ✔  feed.spec.js                             00:09        3        3        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ ✔  new_checkin.spec.js                      00:14        3        3        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ ✔  place_detail.spec.js                     00:09        2        2        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ ✔  places.spec.js                           00:08        3        3        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ ✔  profile.spec.js                          00:15        6        6        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✔  All specs passed!                        01:12       22       22        -        -        -
+```
