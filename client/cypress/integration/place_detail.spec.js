@@ -1,5 +1,5 @@
 import chaiColors from 'chai-colors';
-import { baseApiURL } from '../../src/api';
+import { baseApiTestURL } from '../../src/api';
 import baseAppURL from '../../src/constants/baseAppURL';
 
 chai.use(chaiColors);
@@ -17,7 +17,7 @@ describe('PlaceDetail', () => {
     const token = Cypress.env('token');
     const options = {
       method: 'GET',
-      url: `${baseApiURL}/places/${samplePlaceId}`,
+      url: `${baseApiTestURL}/places/${samplePlaceId}`,
       headers: {
         authorization: `Bearer ${token}`,
       },

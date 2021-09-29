@@ -2,6 +2,7 @@ const express = require('express');
 require('express-async-errors');
 const cors = require('cors');
 const morgan = require('morgan');
+const path = require('path');
 
 const app = express();
 const placesRouter = require('./routes/places');
@@ -13,6 +14,10 @@ const {
   authToken,
 } = require('./utils/middleware');
 const authRouter = require('./routes/auth');
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+}
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('tiny'));

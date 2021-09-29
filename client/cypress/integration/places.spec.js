@@ -1,4 +1,4 @@
-import { baseApiURL } from '../../src/api';
+import { baseApiTestURL } from '../../src/api';
 
 describe('Places', () => {
   beforeEach(() => {
@@ -11,7 +11,7 @@ describe('Places', () => {
     const token = Cypress.env('token');
     const options = {
       method: 'GET',
-      url: `${baseApiURL}/places`,
+      url: `${baseApiTestURL}/places`,
       headers: {
         authorization: `Bearer ${token}`,
       },

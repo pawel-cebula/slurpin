@@ -1,8 +1,8 @@
 import baseAppURL from '../../src/constants/baseAppURL';
-import { baseApiURL } from '../../src/api';
+import { baseApiTestURL } from '../../src/api';
 
 Cypress.Commands.add('login', ({ email, password }) => {
-  cy.request('POST', `${baseApiURL}/auth/login`, {
+  cy.request('POST', `${baseApiTestURL}/auth/login`, {
     email,
     password,
   }).then(({ body }) => {

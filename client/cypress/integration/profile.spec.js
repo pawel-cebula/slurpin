@@ -1,4 +1,3 @@
-// import baseAppURL from '../../src/constants/baseAppURL';
 import errorCodes from '../../src/constants/errorCodes';
 
 describe('Profile', () => {
