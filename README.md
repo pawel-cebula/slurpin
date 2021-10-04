@@ -19,7 +19,6 @@ The client app (SPA) is built with React, uses Redux (with redux-thunk) for stat
 
 ## To Dos
 
-- [ ] Deploy
 - [ ] Optimize mobile views
 - [ ] Add possibility to upload checkin and user profile photos (S3?)
 - [ ] Optimize DB schema and queries for checkin likes (store array of userIds in checkin table?)
