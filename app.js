@@ -3,6 +3,7 @@ require('express-async-errors');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
+const compression = require('compression');
 
 const app = express();
 const placesRouter = require('./routes/places');
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(cors());
 app.use(express.json());
+app.use(compression());
 
 app.use('/api/auth', authRouter);
 app.use('/api/places', placesRouter);
