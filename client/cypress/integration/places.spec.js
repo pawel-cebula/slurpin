@@ -46,7 +46,6 @@ describe('Places', () => {
     cy.get('.place-detail-link').first().as('place');
     cy.get('@place').then(($link) => {
       const placeName = $link.text();
-      console.log(placeName);
       cy.get('@place').click();
       cy.contains(`More information about ${placeName}`);
     });

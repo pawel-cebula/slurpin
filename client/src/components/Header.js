@@ -15,10 +15,25 @@ const Header = () => {
     window.location.reload();
   };
 
-  const userButtons = () => {
+  const NavMenu = () => {
     if (user.token) {
       return (
         <>
+          <Menu.Item key="feed">
+            <NavLink to="/feed" id="nav-feed">
+              Feed
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="places">
+            <NavLink to="/places" id="nav-places">
+              Places
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="checkin">
+            <NavLink to="/new-checkin" id="nav-new-checkin">
+              New checkin
+            </NavLink>
+          </Menu.Item>
           <Menu.Item key="profile" className="margin-left-auto">
             <NavLink to={`/users/${user.id}`} id="nav-profile">
               Profile
@@ -57,22 +72,7 @@ const Header = () => {
           mode="horizontal"
           selectedKeys={[location.pathname.slice(1)]}
         >
-          <Menu.Item key="feed">
-            <NavLink to="/feed" id="nav-feed">
-              Feed
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="places">
-            <NavLink to="/places" id="nav-places">
-              Places
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="checkin">
-            <NavLink to="/new-checkin" id="nav-new-checkin">
-              New checkin
-            </NavLink>
-          </Menu.Item>
-          {userButtons()}
+          {NavMenu()}
         </Menu>
       </div>
     </Layout.Header>

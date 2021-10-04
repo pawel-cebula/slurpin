@@ -18,7 +18,6 @@ describe('Profile', () => {
     // eslint-disable-next-line func-names
     it('displays information about another user', function () {
       const user = this.user[0];
-      console.log('user.innerText', user.innerText);
       cy.contains(user.innerText);
     });
 
